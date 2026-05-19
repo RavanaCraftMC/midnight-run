@@ -7,174 +7,253 @@
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Share+Tech+Mono&family=Rajdhani:wght@400;600;700&display=swap');
 :root{
-  --bg:#08080f;--bg2:#0f0f1a;--bg3:#151525;--panel:#111120;
-  --border:#252540;--border2:#353560;
-  --accent:#ff4d1c;--accent2:#ff9500;
-  --neon:#00e5ff;--neon2:#39ff14;
-  --text:#e8e8f0;--muted:#6b6b8a;
-  --danger:#ff2244;--gold:#ffd700;--purple:#a855f7;
+  --bg:#09090e;--bg2:#0e0e18;--bg3:#141420;--panel:#10101c;
+  --border:#1e1e32;--border2:#2e2e4a;
+  --accent:#e8390e;--accent2:#e07800;
+  --neon:#00c8e0;--neon2:#2ed64a;
+  --text:#dcdce8;--muted:#58587a;
+  --danger:#e01835;--gold:#d4a800;--purple:#8b44d4;
+  --nav-h:56px;
 }
-*{box-sizing:border-box;margin:0;padding:0;}
-body{background:var(--bg);color:var(--text);font-family:'Rajdhani',sans-serif;font-size:15px;min-height:100vh;overflow:hidden;}
-#app{display:flex;flex-direction:column;height:100vh;}
-#header{background:var(--bg2);border-bottom:2px solid var(--accent);padding:8px 16px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;box-shadow:0 2px 30px rgba(255,77,28,0.25);}
-.logo{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:4px;color:var(--accent);text-shadow:0 0 20px rgba(255,77,28,0.5);}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+html,body{height:100%;overflow:hidden;}
+body{background:var(--bg);color:var(--text);font-family:'Rajdhani',sans-serif;font-size:15px;}
+#app{display:flex;flex-direction:column;height:100vh;height:100dvh;}
+
+/* HEADER */
+#header{background:var(--bg2);border-bottom:1px solid var(--border2);padding:0 12px;height:48px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;overflow:hidden;}
+.logo{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:2px;color:var(--accent);white-space:nowrap;flex-shrink:0;}
 .logo span{color:var(--neon);}
-.hud{display:flex;gap:16px;align-items:center;}
-.hud-item{text-align:center;min-width:50px;}
-.hud-label{font-size:9px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;}
-.hud-val{font-family:'Share Tech Mono',monospace;font-size:15px;color:var(--neon);}
+.hud{display:flex;gap:10px;align-items:center;min-width:0;overflow:hidden;}
+.hud-item{text-align:center;}
+.hud-label{font-size:8px;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;display:block;}
+.hud-val{font-family:'Share Tech Mono',monospace;font-size:13px;color:var(--text);}
 .hud-val.gold{color:var(--gold);}
 .hud-val.rep{color:var(--accent2);}
 .hud-val.accent{color:var(--accent);}
-.online-dot{width:8px;height:8px;border-radius:50%;background:var(--neon2);display:inline-block;margin-right:4px;animation:pulse-dot 2s infinite;}
-@keyframes pulse-dot{0%,100%{opacity:1;box-shadow:0 0 4px var(--neon2);}50%{opacity:0.6;box-shadow:0 0 12px var(--neon2);}}
-#main{display:flex;flex:1;overflow:hidden;}
-#sidebar{width:170px;background:var(--bg2);border-right:1px solid var(--border);display:flex;flex-direction:column;flex-shrink:0;}
-.nav-btn{padding:13px 14px;border:none;background:none;color:var(--muted);font-family:'Rajdhani',sans-serif;font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;text-align:left;cursor:pointer;border-left:3px solid transparent;transition:all 0.15s;display:flex;align-items:center;gap:8px;width:100%;}
-.nav-btn:hover{color:var(--text);background:rgba(255,255,255,0.03);}
-.nav-btn.active{color:var(--accent);border-left-color:var(--accent);background:rgba(255,77,28,0.07);}
-.nav-icon{font-size:15px;width:18px;text-align:center;}
-.nav-badge{margin-left:auto;background:var(--danger);color:#fff;border-radius:10px;font-size:9px;padding:1px 5px;font-family:'Share Tech Mono',monospace;}
-#content{flex:1;overflow:hidden;display:flex;flex-direction:column;}
-.tab{display:none;flex:1;overflow-y:auto;padding:16px;}
+.online-pip{width:6px;height:6px;border-radius:50%;background:var(--neon2);display:inline-block;margin-right:3px;animation:blink 2.5s infinite;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:0.3;}}
+.signout-btn{background:none;border:none;color:var(--muted);font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:700;letter-spacing:1px;padding:4px 8px;cursor:pointer;text-transform:uppercase;}
+.signout-btn:hover{color:var(--text);}
+
+/* LAYOUT */
+#main{display:flex;flex:1;overflow:hidden;min-height:0;}
+
+/* DESKTOP SIDEBAR */
+#sidebar{width:160px;background:var(--bg2);border-right:1px solid var(--border);display:flex;flex-direction:column;flex-shrink:0;}
+.nav-btn{padding:12px 14px;border:none;background:none;color:var(--muted);font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;text-align:left;cursor:pointer;border-left:2px solid transparent;transition:all 0.12s;display:flex;align-items:center;gap:9px;width:100%;}
+.nav-btn:hover{color:var(--text);}
+.nav-btn.active{color:var(--accent);border-left-color:var(--accent);background:rgba(232,57,14,0.06);}
+.nav-icon{width:16px;text-align:center;font-style:normal;font-size:13px;}
+.nav-badge{margin-left:auto;background:var(--danger);color:#fff;border-radius:8px;font-size:8px;padding:1px 5px;font-family:'Share Tech Mono',monospace;}
+
+/* MOBILE BOTTOM NAV */
+#bottom-nav{display:none;background:var(--bg2);border-top:1px solid var(--border);flex-shrink:0;height:var(--nav-h);}
+.bnav-btn{flex:1;border:none;background:none;color:var(--muted);font-family:'Rajdhani',sans-serif;font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;padding:6px 0;border-top:2px solid transparent;transition:all 0.12s;position:relative;}
+.bnav-btn.active{color:var(--accent);border-top-color:var(--accent);}
+.bnav-icon{font-size:16px;font-style:normal;line-height:1;}
+.bnav-badge{position:absolute;top:4px;right:calc(50% - 18px);background:var(--danger);color:#fff;border-radius:8px;font-size:8px;padding:1px 4px;font-family:'Share Tech Mono',monospace;}
+
+#content{flex:1;overflow:hidden;display:flex;flex-direction:column;min-width:0;}
+.tab{display:none;flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;}
 .tab.active{display:flex;flex-direction:column;}
-.panel-title{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:3px;color:var(--accent);margin-bottom:14px;border-bottom:1px solid var(--border);padding-bottom:8px;flex-shrink:0;}
-.card{background:var(--panel);border:1px solid var(--border);border-radius:6px;padding:14px;}
-.section-label{font-size:10px;letter-spacing:3px;color:var(--muted);text-transform:uppercase;margin-bottom:8px;font-family:'Share Tech Mono',monospace;}
-#tab-race{flex-direction:row;gap:12px;padding:12px;}
-#race-left{flex:1;display:flex;flex-direction:column;gap:10px;min-width:0;}
-#race-right{width:280px;display:flex;flex-direction:column;gap:10px;flex-shrink:0;}
-.player-row{display:flex;align-items:center;gap:10px;padding:8px 10px;background:var(--bg3);border:1px solid var(--border);border-radius:4px;margin-bottom:5px;transition:all 0.15s;}
-.player-row:hover{border-color:var(--accent);}
-.player-avatar{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0;}
-.player-status{font-size:10px;padding:2px 7px;border-radius:2px;font-weight:700;letter-spacing:1px;background:rgba(57,255,20,0.15);color:var(--neon2);}
-.btn{padding:8px 16px;border-radius:4px;font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:2px;cursor:pointer;border:none;transition:all 0.15s;}
-.btn:active{transform:scale(0.97);}
-.btn:disabled{opacity:0.4;cursor:not-allowed;}
+.tab-inner{padding:12px;}
+.panel-title{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:3px;color:var(--accent);margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--border);flex-shrink:0;}
+
+/* CARDS */
+.card{background:var(--panel);border:1px solid var(--border);border-radius:5px;padding:12px;}
+.section-label{font-size:9px;letter-spacing:2.5px;color:var(--muted);text-transform:uppercase;margin-bottom:8px;font-family:'Share Tech Mono',monospace;}
+
+/* RACE TAB */
+#tab-race .tab-inner{display:flex;gap:10px;}
+#race-left{flex:1;display:flex;flex-direction:column;gap:8px;min-width:0;}
+#race-right{width:240px;display:flex;flex-direction:column;gap:8px;flex-shrink:0;}
+
+/* PLAYER LIST */
+.player-row{display:flex;align-items:center;gap:10px;padding:9px 10px;background:var(--bg3);border:1px solid var(--border);border-radius:4px;margin-bottom:4px;}
+.player-row:active{border-color:var(--accent);}
+.player-avatar{width:30px;height:30px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0;font-family:'Share Tech Mono',monospace;}
+.player-name{font-weight:700;font-size:13px;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.player-status{font-size:9px;padding:2px 6px;border-radius:2px;font-weight:700;letter-spacing:1px;background:rgba(46,214,74,0.12);color:var(--neon2);white-space:nowrap;}
+
+/* BUTTONS */
+.btn{padding:8px 14px;border-radius:4px;font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:2px;cursor:pointer;border:none;transition:background 0.12s;touch-action:manipulation;}
+.btn:active{opacity:0.8;}
+.btn:disabled{opacity:0.35;cursor:not-allowed;}
 .btn-primary{background:var(--accent);color:#fff;}
-.btn-primary:hover:not(:disabled){background:#ff6b40;}
 .btn-secondary{background:var(--bg3);color:var(--text);border:1px solid var(--border2);}
-.btn-secondary:hover:not(:disabled){border-color:var(--accent);color:var(--accent);}
 .btn-gold{background:var(--gold);color:#000;}
-.btn-gold:hover:not(:disabled){background:#ffe040;}
 .btn-danger{background:var(--danger);color:#fff;}
-.btn-sm{padding:5px 12px;font-size:13px;}
-#tab-chat{flex-direction:column;padding:0;overflow:hidden;}
-#chat-messages{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:3px;}
-.chat-msg{display:flex;gap:8px;align-items:flex-start;line-height:1.4;}
-.chat-time{font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--muted);flex-shrink:0;margin-top:2px;min-width:38px;}
-.chat-author{font-weight:700;font-size:13px;flex-shrink:0;min-width:90px;max-width:110px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
-.chat-text{font-size:13px;color:var(--text);}
+.btn-sm{padding:5px 11px;font-size:12px;}
+
+/* CHAT */
+#tab-chat{padding:0;overflow:hidden;}
+#chat-messages{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:12px;display:flex;flex-direction:column;gap:2px;}
+.chat-msg{display:flex;gap:7px;align-items:baseline;line-height:1.5;}
+.chat-time{font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--muted);flex-shrink:0;min-width:34px;}
+.chat-author{font-weight:700;font-size:12px;flex-shrink:0;max-width:100px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.chat-text{font-size:13px;color:var(--text);word-break:break-word;}
 .chat-text.sys{color:var(--neon);font-style:italic;}
 .chat-text.race{color:var(--accent2);}
 .chat-text.win{color:var(--neon2);}
 .chat-text.lose{color:var(--danger);}
 .chat-text.market{color:var(--purple);}
-#chat-input-area{padding:10px 14px;background:var(--bg2);border-top:1px solid var(--border);display:flex;gap:8px;flex-shrink:0;}
-#chat-input{flex:1;background:var(--bg3);border:1px solid var(--border);border-radius:4px;padding:8px 12px;color:var(--text);font-family:'Rajdhani',sans-serif;font-size:14px;outline:none;}
-#chat-input:focus{border-color:var(--neon);}
-.cars-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(185px,1fr));gap:10px;}
-.car-card{background:var(--panel);border:1px solid var(--border);border-radius:6px;padding:12px;transition:all 0.15s;position:relative;}
-.car-card:hover{border-color:var(--border2);transform:translateY(-1px);}
-.car-card.selected{border-color:var(--gold);box-shadow:0 0 12px rgba(255,215,0,0.15);}
-.car-card.locked{opacity:0.35;}
-.car-card.owned{border-color:rgba(57,255,20,0.3);}
-.car-name{font-family:'Bebas Neue',sans-serif;font-size:17px;letter-spacing:1px;}
-.car-cls{font-size:10px;letter-spacing:2px;color:var(--muted);margin-bottom:6px;}
-.car-emoji{font-size:34px;text-align:center;margin:8px 0;}
-.stat-bar{margin:3px 0;display:flex;align-items:center;gap:6px;font-size:10px;}
-.stat-label{color:var(--muted);width:36px;font-family:'Share Tech Mono',monospace;}
-.bar-bg{flex:1;background:var(--bg3);border-radius:2px;height:5px;overflow:hidden;}
-.bar-fill{height:100%;border-radius:2px;transition:width 0.4s;}
+#chat-input-area{padding:8px 12px;background:var(--bg2);border-top:1px solid var(--border);display:flex;gap:8px;flex-shrink:0;}
+#chat-input{flex:1;background:var(--bg3);border:1px solid var(--border);border-radius:4px;padding:9px 12px;color:var(--text);font-family:'Rajdhani',sans-serif;font-size:15px;outline:none;}
+#chat-input:focus{border-color:var(--accent);}
+
+/* CARS */
+.cars-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px;}
+.car-card{background:var(--panel);border:1px solid var(--border);border-radius:5px;padding:11px;transition:border-color 0.12s;position:relative;}
+.car-card.selected{border-color:var(--gold);}
+.car-card.locked{opacity:0.3;}
+.car-card.owned{border-color:rgba(46,214,74,0.25);}
+.car-name{font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:1px;line-height:1.1;margin-bottom:2px;}
+.car-cls{font-size:9px;letter-spacing:2px;color:var(--muted);margin-bottom:8px;font-family:'Share Tech Mono',monospace;}
+.car-svg{display:block;margin:6px auto 8px;opacity:0.85;}
+.car-img-wrap{margin:6px 0 8px;text-align:center;height:52px;display:flex;align-items:center;justify-content:center;}
+.car-sprite-img{max-height:52px;max-width:100%;image-rendering:pixelated;display:block;}
+.car-svg-fallback{width:100%;height:40px;border-radius:3px;margin:0 auto;}
+.stat-bar{margin:2px 0;display:flex;align-items:center;gap:5px;font-size:9px;}
+.stat-label{color:var(--muted);width:32px;font-family:'Share Tech Mono',monospace;}
+.bar-bg{flex:1;background:var(--bg3);border-radius:1px;height:4px;overflow:hidden;}
+.bar-fill{height:100%;border-radius:1px;transition:width 0.4s;}
 .bar-speed{background:var(--neon);}
 .bar-accel{background:var(--accent);}
 .bar-handle{background:var(--accent2);}
 .bar-grip{background:var(--neon2);}
-.car-badge{position:absolute;top:7px;right:7px;font-size:9px;padding:2px 5px;border-radius:2px;font-weight:700;letter-spacing:1px;}
+.car-badge{position:absolute;top:6px;right:6px;font-size:8px;padding:2px 5px;border-radius:2px;font-weight:700;letter-spacing:1px;}
 .car-badge.active{background:var(--gold);color:#000;}
 .car-badge.owned{background:var(--neon2);color:#000;}
 .car-badge.locked{background:var(--muted);color:#000;}
-.upgrade-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin-top:12px;}
-.upgrade-card{background:var(--panel);border:1px solid var(--border);border-radius:6px;padding:14px;text-align:center;}
-.upgrade-icon{font-size:32px;margin-bottom:8px;}
-.upgrade-name{font-family:'Bebas Neue',sans-serif;font-size:17px;letter-spacing:1px;margin-bottom:4px;}
-.upgrade-desc{font-size:12px;color:var(--muted);margin-bottom:12px;line-height:1.5;}
-.upgrade-tier{display:flex;justify-content:center;gap:4px;margin-bottom:10px;}
-.tier-pip{width:18px;height:8px;border-radius:2px;background:var(--bg3);border:1px solid var(--border);}
+
+/* GARAGE UPGRADES */
+.upgrade-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:8px;margin-top:10px;}
+.upgrade-card{background:var(--panel);border:1px solid var(--border);border-radius:5px;padding:14px;}
+.upgrade-icon-text{font-size:11px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;font-family:'Share Tech Mono',monospace;margin-bottom:6px;}
+.upgrade-name{font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:1px;margin-bottom:4px;}
+.upgrade-desc{font-size:11px;color:var(--muted);margin-bottom:10px;line-height:1.5;}
+.upgrade-tier{display:flex;gap:3px;margin-bottom:10px;}
+.tier-pip{flex:1;height:6px;border-radius:1px;background:var(--bg3);border:1px solid var(--border);}
 .tier-pip.active{background:var(--neon);border-color:var(--neon);}
 .tier-pip.maxed{background:var(--gold);border-color:var(--gold);}
-.tune-section{background:var(--panel);border:1px solid var(--border);border-radius:6px;padding:14px;margin-bottom:10px;flex-shrink:0;}
-.tune-section-title{font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:2px;color:var(--neon);margin-bottom:10px;}
-.tune-row{display:flex;align-items:center;gap:10px;margin:6px 0;flex-wrap:wrap;}
-.tune-name{flex:1;font-size:13px;min-width:140px;}
-.tune-pips{display:flex;gap:3px;}
-.pip{width:18px;height:14px;border:1px solid var(--border);border-radius:2px;background:var(--bg3);}
+
+/* TUNING */
+.tune-section{background:var(--panel);border:1px solid var(--border);border-radius:5px;padding:12px;margin-bottom:8px;}
+.tune-section-title{font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:2px;color:var(--neon);margin-bottom:10px;text-transform:uppercase;}
+.tune-row{display:flex;align-items:center;gap:8px;margin:6px 0;}
+.tune-name{flex:1;font-size:12px;min-width:120px;}
+.tune-sub{font-size:9px;color:var(--muted);display:block;}
+.tune-pips{display:flex;gap:2px;}
+.pip{width:16px;height:12px;border:1px solid var(--border);border-radius:2px;background:var(--bg3);}
 .pip.active{background:var(--accent);border-color:var(--accent);}
-.tune-cost{font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--gold);min-width:65px;text-align:right;}
-.tune-btn-sm{background:var(--accent);border:none;border-radius:3px;padding:4px 10px;color:#fff;font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:700;cursor:pointer;letter-spacing:1px;}
-.tune-btn-sm:hover{background:#ff6b40;}
+.tune-cost{font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--gold);min-width:58px;text-align:right;}
+.tune-btn-sm{background:var(--accent);border:none;border-radius:3px;padding:4px 9px;color:#fff;font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:700;cursor:pointer;letter-spacing:1px;touch-action:manipulation;}
 .tune-btn-sm:disabled{background:var(--muted);cursor:not-allowed;}
-.market-tabs{display:flex;gap:6px;margin-bottom:12px;flex-shrink:0;}
-.market-tab-btn{background:var(--bg3);border:1px solid var(--border);border-radius:3px;padding:6px 14px;color:var(--muted);font-family:'Rajdhani',sans-serif;font-size:12px;font-weight:700;letter-spacing:2px;cursor:pointer;transition:all 0.15s;}
+
+/* MARKET */
+.market-tabs{display:flex;gap:5px;margin-bottom:10px;flex-shrink:0;}
+.market-tab-btn{background:var(--bg3);border:1px solid var(--border);border-radius:3px;padding:6px 12px;color:var(--muted);font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:700;letter-spacing:1.5px;cursor:pointer;text-transform:uppercase;}
 .market-tab-btn.active{border-color:var(--purple);color:var(--purple);}
-.listing-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px;}
-.listing-card{background:var(--panel);border:1px solid var(--border);border-radius:6px;padding:14px;transition:all 0.15s;}
-.listing-card:hover{border-color:var(--purple);}
-.listing-ask{font-family:'Share Tech Mono',monospace;font-size:18px;color:var(--gold);margin:8px 0;}
-.lb-row{display:flex;align-items:center;gap:12px;padding:10px 14px;background:var(--panel);border:1px solid var(--border);border-radius:4px;margin-bottom:5px;}
-.lb-row.you{border-color:var(--gold);background:rgba(255,215,0,0.04);}
-.lb-rank{font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--muted);width:30px;text-align:center;}
+.listing-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:8px;}
+.listing-card{background:var(--panel);border:1px solid var(--border);border-radius:5px;padding:12px;}
+.listing-card:hover{border-color:var(--border2);}
+.listing-ask{font-family:'Share Tech Mono',monospace;font-size:16px;color:var(--gold);margin:6px 0;}
+
+/* LEADERBOARD */
+.lb-row{display:flex;align-items:center;gap:10px;padding:9px 12px;background:var(--panel);border:1px solid var(--border);border-radius:4px;margin-bottom:4px;}
+.lb-row.you{border-color:var(--gold);}
+.lb-rank{font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--muted);width:28px;text-align:center;}
 .lb-rank.g{color:var(--gold);}
-.lb-rank.s{color:#c0c0c0;}
-.lb-rank.b{color:#cd7f32;}
-.race-type-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px;}
-.race-type-opt{background:var(--bg3);border:1px solid var(--border);border-radius:4px;padding:10px;cursor:pointer;text-align:center;transition:all 0.15s;}
-.race-type-opt:hover{border-color:var(--accent);}
-.race-type-opt.sel{border-color:var(--accent);background:rgba(255,77,28,0.1);}
-.rt-icon{font-size:22px;margin-bottom:4px;}
-.rt-name{font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:1px;}
-.rt-desc{font-size:10px;color:var(--muted);}
-#modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.8);display:none;align-items:center;justify-content:center;z-index:100;}
+.lb-rank.s{color:#aaa;}
+.lb-rank.b{color:#a06030;}
+
+/* RACE TYPE */
+.race-type-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:10px;}
+.race-type-opt{background:var(--bg3);border:1px solid var(--border);border-radius:4px;padding:9px 6px;cursor:pointer;text-align:center;transition:border-color 0.12s;touch-action:manipulation;}
+.race-type-opt.sel{border-color:var(--accent);background:rgba(232,57,14,0.08);}
+.rt-line{width:28px;height:3px;margin:0 auto 6px;border-radius:1px;}
+.rt-line.drag{background:var(--neon);}
+.rt-line.canyon{background:var(--accent2);}
+.rt-line.circuit{background:var(--purple);}
+.rt-line.pinkslip{background:var(--danger);}
+.rt-name{font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:1px;color:var(--text);}
+.rt-desc{font-size:9px;color:var(--muted);margin-top:1px;}
+
+/* MODAL */
+#modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.85);display:none;align-items:flex-end;justify-content:center;z-index:100;padding:0;}
 #modal-overlay.open{display:flex;}
-.modal{background:var(--bg2);border:1px solid var(--border2);border-radius:8px;padding:22px;max-width:460px;width:90%;max-height:85vh;overflow-y:auto;}
-.modal-title{font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:2px;color:var(--accent);margin-bottom:16px;}
-.form-row{margin-bottom:12px;}
-.form-label{font-size:11px;letter-spacing:2px;color:var(--muted);display:block;margin-bottom:4px;text-transform:uppercase;}
-.form-input{width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:4px;padding:8px 12px;color:var(--text);font-family:'Rajdhani',sans-serif;font-size:14px;outline:none;}
+.modal{background:var(--bg2);border:1px solid var(--border2);border-radius:10px 10px 0 0;padding:20px;width:100%;max-width:500px;max-height:90vh;overflow-y:auto;}
+.modal-title{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:2px;color:var(--accent);margin-bottom:14px;}
+.form-row{margin-bottom:10px;}
+.form-label{font-size:10px;letter-spacing:1.5px;color:var(--muted);display:block;margin-bottom:4px;text-transform:uppercase;}
+.form-input{width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:4px;padding:10px 12px;color:var(--text);font-family:'Rajdhani',sans-serif;font-size:15px;outline:none;-webkit-appearance:none;}
 .form-input:focus{border-color:var(--accent);}
 select.form-input option{background:var(--bg2);}
-.form-hint{font-size:11px;color:var(--muted);margin-top:3px;}
+.form-hint{font-size:10px;color:var(--muted);margin-top:3px;}
 .btn-row{display:flex;gap:8px;}
-.race-result-box{text-align:center;padding:10px 0;}
-.race-result-title{font-family:'Bebas Neue',sans-serif;font-size:52px;letter-spacing:4px;margin-bottom:8px;}
-.race-result-title.win{color:var(--neon2);text-shadow:0 0 20px rgba(57,255,20,0.4);}
-.race-result-title.lose{color:var(--danger);text-shadow:0 0 20px rgba(255,34,68,0.4);}
-.race-track-anim{background:var(--bg3);border-radius:4px;height:20px;margin:6px 0;position:relative;overflow:hidden;}
-.race-marker{position:absolute;height:100%;border-radius:4px;display:flex;align-items:center;padding:0 6px;font-size:11px;font-weight:700;transition:width 1.4s cubic-bezier(0.25,0.46,0.45,0.94);}
+
+/* RACE RESULT */
+.race-result-box{text-align:center;padding:8px 0 4px;}
+.race-result-title{font-family:'Bebas Neue',sans-serif;font-size:48px;letter-spacing:4px;margin-bottom:6px;}
+.race-result-title.win{color:var(--neon2);}
+.race-result-title.lose{color:var(--danger);}
+.race-track-anim{background:var(--bg3);border-radius:3px;height:18px;margin:5px 0;position:relative;overflow:hidden;}
+.race-marker{position:absolute;height:100%;border-radius:3px;display:flex;align-items:center;padding:0 5px;font-size:10px;font-weight:700;transition:width 1.4s cubic-bezier(0.25,0.46,0.45,0.94);}
 .race-marker.you{background:linear-gradient(90deg,transparent,var(--accent));color:#fff;justify-content:flex-end;}
 .race-marker.opp{background:linear-gradient(90deg,transparent,var(--accent2));color:#fff;justify-content:flex-end;}
-.incoming-banner{background:rgba(255,34,68,0.1);border:1px solid var(--danger);border-radius:6px;padding:14px;animation:glow-d 1.5s infinite;}
-@keyframes glow-d{0%,100%{box-shadow:0 0 6px rgba(255,34,68,0.3);}50%{box-shadow:0 0 18px rgba(255,34,68,0.6);}}
-.incoming-badge{background:var(--danger);color:#fff;font-size:10px;padding:2px 8px;border-radius:2px;font-weight:700;letter-spacing:2px;animation:flash 0.9s infinite;}
-@keyframes flash{0%,100%{opacity:1;}50%{opacity:0.5;}}
-#toast{position:fixed;bottom:20px;right:20px;background:var(--panel);border:1px solid var(--border2);border-radius:6px;padding:12px 16px;font-size:13px;z-index:200;transform:translateX(130%);transition:transform 0.3s;max-width:300px;line-height:1.4;}
-#toast.show{transform:translateX(0);}
+
+/* INCOMING */
+.incoming-badge{background:var(--danger);color:#fff;font-size:9px;padding:2px 7px;border-radius:2px;font-weight:700;letter-spacing:2px;animation:flash 0.9s infinite;}
+@keyframes flash{0%,100%{opacity:1;}50%{opacity:0.4;}}
+
+/* TOAST */
+#toast{position:fixed;bottom:70px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--panel);border:1px solid var(--border2);border-radius:5px;padding:10px 16px;font-size:13px;z-index:200;opacity:0;transition:all 0.25s;max-width:90vw;text-align:center;pointer-events:none;}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
 #toast.tw{border-color:var(--neon2);color:var(--neon2);}
 #toast.tl{border-color:var(--danger);color:var(--danger);}
 #toast.ti{border-color:var(--neon);color:var(--neon);}
 #toast.tg{border-color:var(--gold);color:var(--gold);}
-.setup-screen{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;z-index:300;}
-.setup-box{background:var(--bg2);border:1px solid var(--border2);border-radius:10px;padding:32px;max-width:420px;width:90%;text-align:center;}
-.setup-logo{font-family:'Bebas Neue',sans-serif;font-size:52px;letter-spacing:6px;color:var(--accent);text-shadow:0 0 30px rgba(255,77,28,0.4);margin-bottom:4px;}
+
+/* AUTH SCREEN */
+.setup-screen{position:fixed;inset:0;background:var(--bg);display:flex;align-items:center;justify-content:center;z-index:300;padding:16px;}
+.setup-box{background:var(--bg2);border:1px solid var(--border2);border-radius:8px;padding:28px 24px;max-width:400px;width:100%;text-align:center;}
+.setup-logo{font-family:'Bebas Neue',sans-serif;font-size:46px;letter-spacing:6px;color:var(--accent);margin-bottom:2px;}
 .setup-logo span{color:var(--neon);}
-.setup-sub{font-size:12px;letter-spacing:4px;color:var(--muted);margin-bottom:28px;text-transform:uppercase;}
-.sell-car-opt{padding:8px 10px;border:1px solid var(--border);border-radius:4px;margin-bottom:5px;cursor:pointer;transition:all 0.15s;}
-.sell-car-opt:hover{border-color:var(--purple);}
-.sell-car-opt.sel{border-color:var(--gold);background:rgba(255,215,0,0.05);}
-::-webkit-scrollbar{width:4px;}
+.setup-sub{font-size:10px;letter-spacing:4px;color:var(--muted);margin-bottom:24px;text-transform:uppercase;}
+.auth-link{background:none;border:none;color:var(--muted);font-size:11px;cursor:pointer;text-decoration:underline;font-family:'Rajdhani',sans-serif;}
+.auth-divider{display:flex;align-items:center;gap:8px;margin:10px 0;}
+.auth-divider div{flex:1;height:1px;background:var(--border);}
+.auth-divider span{font-size:10px;color:var(--muted);}
+
+/* SELL */
+.sell-car-opt{padding:8px 10px;border:1px solid var(--border);border-radius:4px;margin-bottom:4px;cursor:pointer;transition:border-color 0.12s;}
+.sell-car-opt.sel{border-color:var(--gold);}
+
+/* SCROLLBAR */
+::-webkit-scrollbar{width:3px;}
 ::-webkit-scrollbar-track{background:transparent;}
-::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px;}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px;}
+
+/* MOBILE */
+@media(max-width:640px){
+  #sidebar{display:none;}
+  #bottom-nav{display:flex;}
+  #tab-race .tab-inner{flex-direction:column;}
+  #race-right{width:100%;}
+  .cars-grid{grid-template-columns:repeat(auto-fill,minmax(140px,1fr));}
+  .listing-grid{grid-template-columns:1fr 1fr;}
+  #modal-overlay{align-items:flex-end;}
+  .modal{border-radius:12px 12px 0 0;max-height:80vh;}
+  #toast{bottom:calc(var(--nav-h) + 12px);}
+  .hud-item:nth-child(n+3){display:none;}
+  .logo{font-size:16px;letter-spacing:1px;}
+}
+@media(min-width:641px){
+  #bottom-nav{display:none;}
+  #modal-overlay{align-items:center;}
+  .modal{border-radius:8px;max-height:85vh;max-width:460px;}
+}
 </style>
 </head>
 <body>
@@ -183,6 +262,7 @@ select.form-input option{background:var(--bg2);}
   <div class="setup-box">
     <div class="setup-logo">MIDNIGHT<span>RUN</span></div>
     <div class="setup-sub">Underground Street Racing</div>
+    <div style="font-size:10px;color:var(--muted);margin-top:-18px;margin-bottom:20px;letter-spacing:1px;">Your account. Your cars. Your rep.</div>
 
     <!-- LOGIN VIEW -->
     <div id="auth-login">
@@ -242,40 +322,48 @@ select.form-input option{background:var(--bg2);}
 <div id="header">
   <div class="logo">MIDNIGHT<span>RUN</span></div>
   <div class="hud">
-    <div class="hud-item"><div class="hud-label">Cash</div><div class="hud-val gold" id="hud-cash">$2,500</div></div>
-    <div class="hud-item"><div class="hud-label">Rep</div><div class="hud-val rep" id="hud-rep">0</div></div>
-    <div class="hud-item"><div class="hud-label">W / L</div><div class="hud-val accent" id="hud-wl">0/0</div></div>
-    <div class="hud-item"><div class="hud-label">Garage</div><div class="hud-val" id="hud-garage">1/3</div></div>
-    <div class="hud-item"><div class="hud-label"><span class="online-dot"></span>Online</div><div class="hud-val" id="hud-online">1</div></div>
-    <button onclick="doSignOut()" style="background:none;border:1px solid var(--border);border-radius:4px;color:var(--muted);font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:700;letter-spacing:1px;padding:4px 10px;cursor:pointer;" title="Sign Out">SIGN OUT</button>
+    <div class="hud-item"><span class="hud-label">Cash</span><span class="hud-val gold" id="hud-cash">$2,500</span></div>
+    <div class="hud-item"><span class="hud-label">Rep</span><span class="hud-val rep" id="hud-rep">0</span></div>
+    <div class="hud-item"><span class="hud-label">W/L</span><span class="hud-val accent" id="hud-wl">0/0</span></div>
+    <div class="hud-item"><span class="hud-label"><span class="online-pip"></span>Online</span><span class="hud-val" id="hud-online">1</span></div>
+    <button onclick="doSignOut()" class="signout-btn">Out</button>
   </div>
 </div>
 <div id="main">
   <div id="sidebar">
-    <button class="nav-btn active" onclick="showTab('race')" id="nav-race"><span class="nav-icon">🏁</span>RACE</button>
-    <button class="nav-btn" onclick="showTab('chat')" id="nav-chat"><span class="nav-icon">💬</span>CHAT<span class="nav-badge" id="chat-badge" style="display:none">0</span></button>
-    <button class="nav-btn" onclick="showTab('garage')" id="nav-garage"><span class="nav-icon">🚗</span>GARAGE</button>
-    <button class="nav-btn" onclick="showTab('tuning')" id="nav-tuning"><span class="nav-icon">🔧</span>TUNING</button>
-    <button class="nav-btn" onclick="showTab('market')" id="nav-market"><span class="nav-icon">🏪</span>MARKET</button>
-    <button class="nav-btn" onclick="showTab('rank')" id="nav-rank"><span class="nav-icon">🏆</span>RANKS</button>
+    <button class="nav-btn active" onclick="showTab('race')" id="nav-race"><i class="nav-icon">▶</i>RACE</button>
+    <button class="nav-btn" onclick="showTab('chat')" id="nav-chat"><i class="nav-icon">—</i>CHAT<span class="nav-badge" id="chat-badge" style="display:none">0</span></button>
+    <button class="nav-btn" onclick="showTab('garage')" id="nav-garage"><i class="nav-icon">◈</i>GARAGE</button>
+    <button class="nav-btn" onclick="showTab('tuning')" id="nav-tuning"><i class="nav-icon">◎</i>TUNING</button>
+    <button class="nav-btn" onclick="showTab('market')" id="nav-market"><i class="nav-icon">◇</i>MARKET</button>
+    <button class="nav-btn" onclick="showTab('rank')" id="nav-rank"><i class="nav-icon">△</i>RANKS</button>
+  </div>
+  <div id="bottom-nav">
+    <button class="bnav-btn active" onclick="showTab('race')" id="bnav-race"><i class="bnav-icon">▶</i>RACE</button>
+    <button class="bnav-btn" onclick="showTab('chat')" id="bnav-chat"><i class="bnav-icon">—</i>CHAT<span class="bnav-badge" id="bnav-chat-badge" style="display:none">0</span></button>
+    <button class="bnav-btn" onclick="showTab('garage')" id="bnav-garage"><i class="bnav-icon">◈</i>GARAGE</button>
+    <button class="bnav-btn" onclick="showTab('tuning')" id="bnav-tuning"><i class="bnav-icon">◎</i>TUNE</button>
+    <button class="bnav-btn" onclick="showTab('market')" id="bnav-market"><i class="bnav-icon">◇</i>MARKET</button>
+    <button class="bnav-btn" onclick="showTab('rank')" id="bnav-rank"><i class="bnav-icon">△</i>RANKS</button>
   </div>
   <div id="content">
     <div class="tab active" id="tab-race">
+      <div class="tab-inner">
       <div id="race-left">
         <div class="card" style="flex-shrink:0;">
           <div class="section-label">Your Setup</div>
           <div style="display:flex;align-items:center;gap:14px;">
-            <div style="font-size:40px;" id="my-car-emoji">🚗</div>
-            <div style="flex:1;">
-              <div style="font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:1px;" id="my-car-name">—</div>
-              <div style="font-size:11px;color:var(--muted);" id="my-car-class">—</div>
-              <div style="display:flex;gap:12px;margin-top:6px;">
-                <span style="font-size:12px;color:var(--muted);">PWR <span style="color:var(--neon);font-family:'Share Tech Mono',monospace;" id="my-power">—</span></span>
-                <span style="font-size:12px;color:var(--muted);">SPD <span style="color:var(--accent);font-family:'Share Tech Mono',monospace;" id="my-spd">—</span></span>
-                <span style="font-size:12px;color:var(--muted);">HDL <span style="color:var(--accent2);font-family:'Share Tech Mono',monospace;" id="my-hdl">—</span></span>
+            <div id="my-car-emoji" style="flex-shrink:0;"></div>
+            <div style="flex:1;min-width:0;">
+              <div style="font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" id="my-car-name">—</div>
+              <div style="font-size:10px;color:var(--muted);letter-spacing:1px;margin-bottom:6px;" id="my-car-class">—</div>
+              <div style="display:flex;gap:10px;flex-wrap:wrap;">
+                <span style="font-size:11px;color:var(--muted);">PWR <span style="color:var(--neon);font-family:'Share Tech Mono',monospace;" id="my-power">—</span></span>
+                <span style="font-size:11px;color:var(--muted);">SPD <span style="color:var(--accent);font-family:'Share Tech Mono',monospace;" id="my-spd">—</span></span>
+                <span style="font-size:11px;color:var(--muted);">HDL <span style="color:var(--accent2);font-family:'Share Tech Mono',monospace;" id="my-hdl">—</span></span>
               </div>
             </div>
-            <button class="btn btn-secondary btn-sm" onclick="showTab('garage')">SWAP CAR</button>
+            <button class="btn btn-secondary btn-sm" onclick="showTab('garage')" style="flex-shrink:0;">SWAP</button>
           </div>
         </div>
         <div class="card" style="flex-shrink:0;display:none;" id="incoming-card">
@@ -291,10 +379,10 @@ select.form-input option{background:var(--bg2);}
         <div class="card">
           <div class="section-label">Race Type</div>
           <div class="race-type-grid">
-            <div class="race-type-opt sel" onclick="selectRaceType('drag')" id="rt-drag"><div class="rt-icon">⬆️</div><div class="rt-name">DRAG</div><div class="rt-desc">Pure speed</div></div>
-            <div class="race-type-opt" onclick="selectRaceType('canyon')" id="rt-canyon"><div class="rt-icon">🏔️</div><div class="rt-name">CANYON</div><div class="rt-desc">Handling heavy</div></div>
-            <div class="race-type-opt" onclick="selectRaceType('circuit')" id="rt-circuit"><div class="rt-icon">🔄</div><div class="rt-name">CIRCUIT</div><div class="rt-desc">Balanced</div></div>
-            <div class="race-type-opt" onclick="selectRaceType('pinkslip')" id="rt-pinkslip"><div class="rt-icon">💀</div><div class="rt-name">PINK SLIP</div><div class="rt-desc">Car on the line</div></div>
+            <div class="race-type-opt sel" onclick="selectRaceType('drag')" id="rt-drag"><div class="rt-line drag"></div><div class="rt-name">DRAG</div><div class="rt-desc">Pure speed</div></div>
+            <div class="race-type-opt" onclick="selectRaceType('canyon')" id="rt-canyon"><div class="rt-line canyon"></div><div class="rt-name">CANYON</div><div class="rt-desc">Handling heavy</div></div>
+            <div class="race-type-opt" onclick="selectRaceType('circuit')" id="rt-circuit"><div class="rt-line circuit"></div><div class="rt-name">CIRCUIT</div><div class="rt-desc">Balanced</div></div>
+            <div class="race-type-opt" onclick="selectRaceType('pinkslip')" id="rt-pinkslip"><div class="rt-line pinkslip"></div><div class="rt-name">PINK SLIP</div><div class="rt-desc">Car on the line</div></div>
           </div>
           <div id="stake-row">
             <label class="form-label">Cash Stake (each)</label>
@@ -303,19 +391,20 @@ select.form-input option{background:var(--bg2);}
           </div>
         </div>
         <div class="card">
-          <div class="section-label">Recent Races</div>
+          <div class="section-label">Recent Results</div>
           <div id="recent-races" style="font-size:12px;color:var(--muted);">No races yet.</div>
         </div>
         <div class="card">
           <div class="section-label">Locations</div>
-          <div style="display:flex;flex-direction:column;gap:5px;font-size:12px;">
-            <div style="padding:5px 8px;background:var(--bg3);border-radius:3px;">🏙️ Industrial Strip</div>
-            <div style="padding:5px 8px;background:var(--bg3);border-radius:3px;">🏔️ Canyon Road</div>
-            <div style="padding:5px 8px;background:var(--bg3);border-radius:3px;">🔄 Harbor Circuit</div>
-            <div style="padding:5px 8px;background:var(--bg3);border:1px solid rgba(255,34,68,0.3);border-radius:3px;">💀 <span style="color:var(--danger);">No-Man's Land</span></div>
+          <div style="display:flex;flex-direction:column;gap:4px;font-size:12px;">
+            <div style="padding:5px 8px;background:var(--bg3);border-radius:3px;display:flex;align-items:center;gap:8px;"><span style="width:3px;height:12px;background:var(--neon);border-radius:1px;display:inline-block;flex-shrink:0;"></span>Industrial Strip</div>
+            <div style="padding:5px 8px;background:var(--bg3);border-radius:3px;display:flex;align-items:center;gap:8px;"><span style="width:3px;height:12px;background:var(--accent2);border-radius:1px;display:inline-block;flex-shrink:0;"></span>Canyon Road</div>
+            <div style="padding:5px 8px;background:var(--bg3);border-radius:3px;display:flex;align-items:center;gap:8px;"><span style="width:3px;height:12px;background:var(--purple);border-radius:1px;display:inline-block;flex-shrink:0;"></span>Harbor Circuit</div>
+            <div style="padding:5px 8px;background:var(--bg3);border:1px solid rgba(224,24,53,0.3);border-radius:3px;display:flex;align-items:center;gap:8px;"><span style="width:3px;height:12px;background:var(--danger);border-radius:1px;display:inline-block;flex-shrink:0;"></span><span style="color:var(--danger);">No-Man's Land</span></div>
           </div>
         </div>
       </div>
+      </div><!-- end tab-inner -->
     </div>
     <div class="tab" id="tab-chat" style="padding:0;overflow:hidden;">
       <div id="chat-messages"></div>
@@ -325,7 +414,8 @@ select.form-input option{background:var(--bg2);}
       </div>
     </div>
     <div class="tab" id="tab-garage">
-      <div class="panel-title">🚗 GARAGE</div>
+      <div class="tab-inner">
+      <div class="panel-title">GARAGE</div>
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;flex-shrink:0;">
         <div style="font-family:'Share Tech Mono',monospace;font-size:12px;color:var(--muted);">Slots: <span style="color:var(--neon2);" id="garage-slots-used">1</span> / <span id="garage-slots-max">3</span></div>
         <div style="display:flex;gap:6px;">
@@ -335,24 +425,31 @@ select.form-input option{background:var(--bg2);}
         </div>
       </div>
       <div id="garage-content" style="flex:1;overflow-y:auto;"></div>
+      </div><!-- /tab-inner -->
     </div>
     <div class="tab" id="tab-tuning">
-      <div class="panel-title">🔧 TUNING SHOP</div>
+      <div class="tab-inner">
+      <div class="panel-title">TUNING SHOP</div>
       <div id="tuning-car-banner" class="card" style="margin-bottom:12px;flex-shrink:0;"></div>
       <div id="tuning-content" style="flex:1;overflow-y:auto;"></div>
+      </div><!-- /tab-inner -->
     </div>
     <div class="tab" id="tab-market">
-      <div class="panel-title">🏪 MARKETPLACE</div>
+      <div class="tab-inner">
+      <div class="panel-title">MARKETPLACE</div>
       <div class="market-tabs">
         <button class="market-tab-btn active" id="mtab-listings" onclick="showMarketTab('listings')">ALL LISTINGS</button>
         <button class="market-tab-btn" id="mtab-mine" onclick="showMarketTab('mine')">MY LISTINGS</button>
         <button class="market-tab-btn" id="mtab-sell" onclick="showMarketTab('sell')">SELL A CAR</button>
       </div>
       <div id="market-content" style="flex:1;overflow-y:auto;"></div>
+      </div><!-- /tab-inner -->
     </div>
     <div class="tab" id="tab-rank">
-      <div class="panel-title">🏆 STREET KINGS</div>
+      <div class="tab-inner">
+      <div class="panel-title">STREET KINGS</div>
       <div id="rank-content" style="flex:1;overflow-y:auto;"></div>
+      </div><!-- /tab-inner -->
     </div>
   </div>
 </div>
@@ -363,6 +460,7 @@ select.form-input option{background:var(--bg2);}
 </div>
 <div id="toast"></div>
 
+<script src="sprites.js"></script>
 <script type="module">
 import{initializeApp}from"https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import{getDatabase,ref,set,get,onValue,onChildAdded,push,remove,serverTimestamp,onDisconnect,query,orderByChild,limitToLast}from"https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
@@ -488,41 +586,41 @@ function launchGame(){
 }
 
 const CARS=[
-  {id:'civic_si',name:'Honda Civic Si',cls:'D',emoji:'🚗',price:0,repReq:0,speed:42,accel:45,handle:55,grip:50},
-  {id:'ae86',name:'Toyota AE86 Trueno',cls:'D',emoji:'🚗',price:0,repReq:0,speed:48,accel:52,handle:80,grip:65},
-  {id:'mx5_nb',name:'Mazda Miata NB',cls:'D',emoji:'🚗',price:0,repReq:0,speed:52,accel:55,handle:82,grip:68},
-  {id:'240sx',name:'Nissan 240SX S13',cls:'D',emoji:'🚙',price:0,repReq:0,speed:54,accel:56,handle:75,grip:65},
-  {id:'neon_srt',name:'Dodge Neon SRT-4',cls:'D',emoji:'🚗',price:0,repReq:0,speed:60,accel:65,handle:55,grip:58},
-  {id:'integra',name:'Acura Integra GSR',cls:'C',emoji:'🚙',price:8500,repReq:100,speed:55,accel:58,handle:62,grip:58},
-  {id:'eclipse',name:'Mitsubishi Eclipse GS',cls:'C',emoji:'🚙',price:9000,repReq:120,speed:54,accel:60,handle:58,grip:60},
-  {id:'prelude',name:'Honda Prelude',cls:'C',emoji:'🚙',price:7500,repReq:80,speed:52,accel:56,handle:65,grip:55},
-  {id:'celica',name:'Toyota Celica GT',cls:'C',emoji:'🚙',price:8000,repReq:90,speed:53,accel:57,handle:63,grip:57},
-  {id:'focus_st',name:'Ford Focus ST',cls:'C',emoji:'🚙',price:11000,repReq:140,speed:58,accel:62,handle:60,grip:62},
-  {id:'cobalt_ss',name:'Chevy Cobalt SS',cls:'C',emoji:'🚗',price:9500,repReq:110,speed:57,accel:63,handle:57,grip:59},
-  {id:'rx8',name:'Mazda RX-8',cls:'C',emoji:'🚙',price:14000,repReq:200,speed:62,accel:65,handle:80,grip:70},
-  {id:'supra',name:'Toyota Supra MK4',cls:'B',emoji:'🏎️',price:28000,repReq:500,speed:78,accel:74,handle:72,grip:70},
-  {id:'rx7',name:'Mazda RX-7 FD',cls:'B',emoji:'🏎️',price:25000,repReq:450,speed:76,accel:76,handle:82,grip:78},
-  {id:'evo8',name:'Mitsubishi Evo VIII',cls:'B',emoji:'🏎️',price:22000,repReq:400,speed:75,accel:78,handle:80,grip:82},
-  {id:'sti',name:'Subaru WRX STI',cls:'B',emoji:'🏎️',price:24000,repReq:420,speed:74,accel:77,handle:78,grip:80},
-  {id:'s2000',name:'Honda S2000',cls:'B',emoji:'🏎️',price:20000,repReq:380,speed:72,accel:72,handle:85,grip:76},
-  {id:'silvia',name:'Nissan Silvia S15',cls:'B',emoji:'🏎️',price:19000,repReq:350,speed:70,accel:70,handle:78,grip:72},
-  {id:'350z',name:'Nissan 350Z',cls:'B',emoji:'🏎️',price:23000,repReq:410,speed:73,accel:71,handle:75,grip:73},
-  {id:'skylineR33',name:'Nissan Skyline R33 GTR',cls:'B',emoji:'🏎️',price:26000,repReq:480,speed:77,accel:75,handle:74,grip:79},
-  {id:'nsx',name:'Honda NSX',cls:'B',emoji:'🏎️',price:30000,repReq:520,speed:78,accel:73,handle:83,grip:80},
-  {id:'chaser',name:'Toyota Chaser JZX100',cls:'B',emoji:'🏎️',price:18000,repReq:330,speed:68,accel:67,handle:70,grip:68},
-  {id:'r32',name:'Nissan Skyline GT-R R32',cls:'B',emoji:'🏎️',price:35000,repReq:600,speed:80,accel:78,handle:77,grip:81},
-  {id:'clio_v6',name:'Renault Clio V6',cls:'B',emoji:'🏎️',price:28000,repReq:500,speed:75,accel:72,handle:80,grip:74},
-  {id:'integrale',name:'Lancia Delta Integrale',cls:'B',emoji:'🏎️',price:32000,repReq:550,speed:76,accel:74,handle:79,grip:82},
-  {id:'gtrR34',name:'Nissan GT-R R34',cls:'A',emoji:'🏎️',price:65000,repReq:1200,speed:88,accel:85,handle:83,grip:86},
-  {id:'evo9',name:'Mitsubishi Evo IX MR',cls:'A',emoji:'🏎️',price:45000,repReq:900,speed:84,accel:88,handle:86,grip:88},
-  {id:'impreza22b',name:'Subaru Impreza 22B',cls:'A',emoji:'🏎️',price:70000,repReq:1300,speed:86,accel:86,handle:84,grip:87},
-  {id:'typeR_fk8',name:'Honda Civic Type R FK8',cls:'A',emoji:'🏎️',price:38000,repReq:800,speed:80,accel:82,handle:88,grip:85},
-  {id:'m3_e46',name:'BMW M3 E46',cls:'A',emoji:'🏎️',price:40000,repReq:820,speed:82,accel:80,handle:86,grip:84},
-  {id:'rs4_b5',name:'Audi RS4 B5',cls:'A',emoji:'🏎️',price:48000,repReq:950,speed:85,accel:84,handle:80,grip:85},
-  {id:'c63_w204',name:'Mercedes C63 AMG',cls:'A',emoji:'🏎️',price:50000,repReq:1000,speed:86,accel:83,handle:78,grip:82},
-  {id:'996_turbo',name:'Porsche 911 Turbo 996',cls:'A',emoji:'🏎️',price:75000,repReq:1400,speed:89,accel:88,handle:87,grip:88},
-  {id:'corvette_z06',name:'Chevrolet Corvette C5 Z06',cls:'A',emoji:'🏎️',price:42000,repReq:850,speed:86,accel:85,handle:82,grip:83},
-  {id:'viper_gts',name:'Dodge Viper GTS',cls:'A',emoji:'🏎️',price:55000,repReq:1100,speed:90,accel:88,handle:80,grip:82},
+  {id:'civic_si',name:'Kato SR',cls:'D',emoji:'🚗',price:0,repReq:0,speed:42,accel:45,handle:55,grip:50},
+  {id:'ae86',name:'Tendo GT',cls:'D',emoji:'🚗',price:0,repReq:0,speed:48,accel:52,handle:80,grip:65},
+  {id:'mx5_nb',name:'Solara RS',cls:'D',emoji:'🚗',price:0,repReq:0,speed:52,accel:55,handle:82,grip:68},
+  {id:'240sx',name:'Vance S2',cls:'D',emoji:'🚙',price:0,repReq:0,speed:54,accel:56,handle:75,grip:65},
+  {id:'neon_srt',name:'Korvex SX',cls:'D',emoji:'🚗',price:0,repReq:0,speed:60,accel:65,handle:55,grip:58},
+  {id:'integra',name:'Nexus GR',cls:'C',emoji:'🚙',price:8500,repReq:100,speed:55,accel:58,handle:62,grip:58},
+  {id:'eclipse',name:'Stratos TT',cls:'C',emoji:'🚙',price:9000,repReq:120,speed:54,accel:60,handle:58,grip:60},
+  {id:'prelude',name:'Altair V6',cls:'C',emoji:'🚙',price:7500,repReq:80,speed:52,accel:56,handle:65,grip:55},
+  {id:'celica',name:'Kestrel GT',cls:'C',emoji:'🚙',price:8000,repReq:90,speed:53,accel:57,handle:63,grip:57},
+  {id:'focus_st',name:'Vantis ST',cls:'C',emoji:'🚙',price:11000,repReq:140,speed:58,accel:62,handle:60,grip:62},
+  {id:'cobalt_ss',name:'Apex SC',cls:'C',emoji:'🚗',price:9500,repReq:110,speed:57,accel:63,handle:57,grip:59},
+  {id:'rx8',name:'Ryuken X4',cls:'C',emoji:'🚙',price:14000,repReq:200,speed:62,accel:65,handle:80,grip:70},
+  {id:'supra',name:'Takara ZR',cls:'B',emoji:'🏎️',price:28000,repReq:500,speed:78,accel:74,handle:72,grip:70},
+  {id:'rx7',name:'Kurai FD',cls:'B',emoji:'🏎️',price:25000,repReq:450,speed:76,accel:76,handle:82,grip:78},
+  {id:'evo8',name:'Strika R8',cls:'B',emoji:'🏎️',price:22000,repReq:400,speed:75,accel:78,handle:80,grip:82},
+  {id:'sti',name:'Vortex S4',cls:'B',emoji:'🏎️',price:24000,repReq:420,speed:74,accel:77,handle:78,grip:80},
+  {id:'s2000',name:'Helios AP',cls:'B',emoji:'🏎️',price:20000,repReq:380,speed:72,accel:72,handle:85,grip:76},
+  {id:'silvia',name:'Kasai S5',cls:'B',emoji:'🏎️',price:19000,repReq:350,speed:70,accel:70,handle:78,grip:72},
+  {id:'350z',name:'Zephyr Z3',cls:'B',emoji:'🏎️',price:23000,repReq:410,speed:73,accel:71,handle:75,grip:73},
+  {id:'skylineR33',name:'Fenrir RR',cls:'B',emoji:'🏎️',price:26000,repReq:480,speed:77,accel:75,handle:74,grip:79},
+  {id:'nsx',name:'Orion GT',cls:'B',emoji:'🏎️',price:30000,repReq:520,speed:78,accel:73,handle:83,grip:80},
+  {id:'chaser',name:'Kira Type-R',cls:'B',emoji:'🏎️',price:18000,repReq:330,speed:68,accel:67,handle:70,grip:68},
+  {id:'r32',name:'Valdus V8',cls:'B',emoji:'🏎️',price:35000,repReq:600,speed:80,accel:78,handle:77,grip:81},
+  {id:'clio_v6',name:'Praxis SE',cls:'B',emoji:'🏎️',price:28000,repReq:500,speed:75,accel:72,handle:80,grip:74},
+  {id:'integrale',name:'Cresta SS',cls:'B',emoji:'🏎️',price:32000,repReq:550,speed:76,accel:74,handle:79,grip:82},
+  {id:'gtrR34',name:'Nemesis R',cls:'A',emoji:'🏎️',price:65000,repReq:1200,speed:88,accel:85,handle:83,grip:86},
+  {id:'evo9',name:'Stratos SR',cls:'A',emoji:'🏎️',price:45000,repReq:900,speed:84,accel:88,handle:86,grip:88},
+  {id:'impreza22b',name:'Kaizen GT',cls:'A',emoji:'🏎️',price:70000,repReq:1300,speed:86,accel:86,handle:84,grip:87},
+  {id:'typeR_fk8',name:'Luxor V12',cls:'A',emoji:'🏎️',price:38000,repReq:800,speed:80,accel:82,handle:88,grip:85},
+  {id:'m3_e46',name:'Venom RS',cls:'A',emoji:'🏎️',price:40000,repReq:820,speed:82,accel:80,handle:86,grip:84},
+  {id:'rs4_b5',name:'Spectra FX',cls:'A',emoji:'🏎️',price:48000,repReq:950,speed:85,accel:84,handle:80,grip:85},
+  {id:'c63_w204',name:'Mantis GT',cls:'A',emoji:'🏎️',price:50000,repReq:1000,speed:86,accel:83,handle:78,grip:82},
+  {id:'996_turbo',name:'Raven XR',cls:'A',emoji:'🏎️',price:75000,repReq:1400,speed:89,accel:88,handle:87,grip:88},
+  {id:'corvette_z06',name:'Kodiak V10',cls:'A',emoji:'🏎️',price:42000,repReq:850,speed:86,accel:85,handle:82,grip:83},
+  {id:'viper_gts',name:'Diablo SS',cls:'A',emoji:'🏎️',price:55000,repReq:1100,speed:90,accel:88,handle:80,grip:82},
   {id:'m5_e39',name:'BMW M5 E39',cls:'A',emoji:'🏎️',price:40000,repReq:830,speed:84,accel:82,handle:80,grip:80},
   {id:'lambo_gallardo',name:'Lamborghini Gallardo',cls:'S',emoji:'🏎️',price:180000,repReq:3000,speed:95,accel:94,handle:90,grip:92},
   {id:'ferrari_360',name:'Ferrari 360 Modena',cls:'S',emoji:'🏎️',price:165000,repReq:2800,speed:94,accel:92,handle:93,grip:91},
@@ -559,10 +657,10 @@ const TUNING_CATS=[
 ];
 
 const GARAGE_UPGRADES=[
-  {id:'slots',name:'Extra Garage Slots',icon:'🏗️',levels:[3,5,8,12],costs:[5000,15000,40000,100000],desc:'Hold more cars in your garage.'},
-  {id:'lift',name:'Hydraulic Lift',icon:'⬆️',levels:['Basic','Pro','Race','Elite'],costs:[3000,8000,20000,50000],desc:'Reduces all tuning costs by 5% per level.'},
-  {id:'dyno',name:'Dyno Machine',icon:'📊',levels:['Entry','Precision','Pro'],costs:[4000,12000,30000],desc:'+0.5 bonus stat per level on every upgrade.'},
-  {id:'parts',name:'Parts Storage',icon:'📦',levels:['Small','Large','Warehouse'],costs:[2000,6000,15000],desc:'Unlocks advanced tuning options.'},
+  {id:'slots',name:'Extra Garage Slots',icon:'SLT',levels:[3,5,8,12],costs:[5000,15000,40000,100000],desc:'Hold more cars in your garage.'},
+  {id:'lift',name:'Hydraulic Lift',icon:'LFT',levels:['Basic','Pro','Race','Elite'],costs:[3000,8000,20000,50000],desc:'Reduces all tuning costs by 5% per level.'},
+  {id:'dyno',name:'Dyno Machine',icon:'DYN',levels:['Entry','Precision','Pro'],costs:[4000,12000,30000],desc:'+0.5 bonus stat per level on every upgrade.'},
+  {id:'parts',name:'Parts Storage',icon:'PRT',levels:['Small','Large','Warehouse'],costs:[2000,6000,15000],desc:'Unlocks advanced tuning options.'},
 ];
 
 let G={playerId:null,playerName:'',cash:2500,rep:0,wins:0,losses:0,owned:[],selected:null,tuning:{},garageUpgrades:{slots:0,lift:0,dyno:0,parts:0},garageMax:3};
@@ -628,7 +726,7 @@ window.openChallengeModal=function(targetId,targetName,targetCarId){
       <div><div class="form-label">Your Stake</div><div style="font-size:13px;color:var(--gold);font-family:'Share Tech Mono',monospace;">${isPink?'YOUR CAR':'$'+stake.toLocaleString()}</div></div>
       <div><div class="form-label">Total Pot</div><div style="font-size:13px;color:var(--gold);font-family:'Share Tech Mono',monospace;">${isPink?'PINK SLIP':'$'+(stake*2).toLocaleString()}</div></div>
     </div>
-    ${isPink?'<div style="color:var(--danger);font-size:12px;margin-bottom:14px;border:1px solid rgba(255,34,68,0.3);padding:8px;border-radius:4px;">⚠️ Loser forfeits their active car. No take-backs.</div>':''}
+    ${isPink?'<div style="color:var(--danger);font-size:12px;margin-bottom:14px;border:1px solid rgba(255,34,68,0.3);padding:8px;border-radius:4px;">[!] Loser forfeits their active car. No take-backs.</div>':''}
     <div class="btn-row"><button class="btn btn-primary" style="flex:1;" onclick="sendChallenge('${targetId}','${esc(targetName)}','${targetCarId}')">SEND CHALLENGE</button><button class="btn btn-secondary" onclick="closeModal()">CANCEL</button></div>`);
 };
 
@@ -715,9 +813,9 @@ async function runRace(oppId,oppName,oppCarId,raceType,stake){
     <div class="race-result-title ${iWon?'win':'lose'}">${iWon?'VICTORY':'DEFEAT'}</div>
     <div style="margin:14px 0;">
       <div style="font-size:11px;color:var(--muted);margin-bottom:3px;">${esc(G.playerName)}</div>
-      <div class="race-track-anim"><div class="race-marker you" id="rm-you" style="width:0%">🏁</div></div>
+      <div class="race-track-anim"><div class="race-marker you" id="rm-you" style="width:0%"></div></div>
       <div style="font-size:11px;color:var(--accent2);margin:5px 0 3px;">${esc(oppName)}</div>
-      <div class="race-track-anim"><div class="race-marker opp" id="rm-opp" style="width:0%">🏁</div></div>
+      <div class="race-track-anim"><div class="race-marker opp" id="rm-opp" style="width:0%"></div></div>
     </div>
     <div style="margin-bottom:18px;font-size:16px;font-weight:700;color:${iWon?'var(--neon2)':'var(--danger)'};">${outcomeText}</div>
     <button class="btn btn-primary" style="width:100%;" onclick="finalizeRace(${iWon},'${raceType}',${stake},'${oppCarId}','${esc(oppName)}')">COLLECT & CLOSE</button>
@@ -738,17 +836,17 @@ window.finalizeRace=async function(iWon,raceType,stake,oppCarId,oppName){
     G.wins++;G.rep+=Math.max(20,Math.round(30+stake/100));
     if(isPink){
       const car=getCarById(oppCarId);
-      if(car&&!G.owned.includes(oppCarId)&&G.owned.length<G.garageMax){G.owned.push(oppCarId);toast('🔑 You won '+car.name+'!','tw');}
+      if(car&&!G.owned.includes(oppCarId)&&G.owned.length<G.garageMax){G.owned.push(oppCarId);toast('Won '+car.name+'!','tw');}
       else if(G.owned.length>=G.garageMax) toast('Won the car but garage full — sell one!','tg');
-      msg=`${G.playerName} took ${oppName}'s ${getCarById(oppCarId)?.name||'car'} in a pink slip! 💀`;
+      msg=`${G.playerName} took ${oppName}'s ${getCarById(oppCarId)?.name||'car'} in a pink slip! [PINK SLIP]`;
     } else {
-      G.cash+=stake*2;toast('🏆 Won $'+(stake*2).toLocaleString()+'!','tw');
+      G.cash+=stake*2;toast('Won $'+(stake*2).toLocaleString()+'!','tw');
       msg=`${G.playerName} beat ${oppName} and won $${(stake*2).toLocaleString()}!`;
     }
   } else {
     G.losses++;
     if(isPink){
-      if(G.owned.length>1){const lc=getCarById(G.selected);G.owned=G.owned.filter(id=>id!==G.selected);G.selected=G.owned[0];toast('💀 Lost your '+lc?.name+'.','tl');msg=`${oppName} took ${G.playerName}'s ${lc?.name} in a pink slip! 💀`;}
+      if(G.owned.length>1){const lc=getCarById(G.selected);G.owned=G.owned.filter(id=>id!==G.selected);G.selected=G.owned[0];toast('Lost your '+lc?.name+'.','tl');msg=`${oppName} took ${G.playerName}'s ${lc?.name} in a pink slip! [PINK SLIP]`;}
     } else {
       G.cash=Math.max(0,G.cash-stake);toast('Lost $'+stake.toLocaleString()+'.','tl');
       msg=`${oppName} beat ${G.playerName} for $${(stake*2).toLocaleString()}.`;
@@ -807,7 +905,18 @@ function renderChatMsg(m){
 }
 
 function scrollChat(){const b=document.getElementById('chat-messages');b.scrollTop=b.scrollHeight;}
-function updateChatBadge(){const b=document.getElementById('chat-badge');if(chatUnread>0){b.style.display='';b.textContent=chatUnread>9?'9+':chatUnread;}else b.style.display='none';}
+function updateChatBadge(){
+  const val=chatUnread>9?'9+':chatUnread;
+  const b=document.getElementById('chat-badge');
+  const bb=document.getElementById('bnav-chat-badge');
+  if(chatUnread>0){
+    if(b){b.style.display='';b.textContent=val;}
+    if(bb){bb.style.display='';bb.textContent=val;}
+  }else{
+    if(b) b.style.display='none';
+    if(bb) bb.style.display='none';
+  }
+}
 
 window.showGarageSection=function(s){garageSection=s;renderGarage();};
 
@@ -833,7 +942,11 @@ function renderGarage(){
       const canBuy=G.cash>=car.price&&G.owned.length<G.garageMax&&!locked;
       action=`<div class="car-price" style="font-family:'Share Tech Mono',monospace;font-size:12px;color:var(--gold);margin-top:8px;">${car.price===0?'FREE':'$'+car.price.toLocaleString()}${locked?' — '+car.repReq+' REP req':''}</div><button class="btn btn-primary btn-sm" style="width:100%;margin-top:6px;" onclick="buyCar('${car.id}')" ${canBuy?'':'disabled'}>${canBuy?'BUY':locked?'LOCKED':G.owned.length>=G.garageMax?'GARAGE FULL':'NO CASH'}</button>`;
     }
-    div.innerHTML=`${badge}<div class="car-cls">${car.cls}-CLASS</div><div class="car-name">${car.name}</div><div class="car-emoji">${car.emoji}</div><div class="stat-bar"><span class="stat-label">SPD</span><div class="bar-bg"><div class="bar-fill bar-speed" style="width:${s.speed}%"></div></div></div><div class="stat-bar"><span class="stat-label">ACC</span><div class="bar-bg"><div class="bar-fill bar-accel" style="width:${s.accel}%"></div></div></div><div class="stat-bar"><span class="stat-label">HDL</span><div class="bar-bg"><div class="bar-fill bar-handle" style="width:${s.handle}%"></div></div></div><div class="stat-bar"><span class="stat-label">GRP</span><div class="bar-bg"><div class="bar-fill bar-grip" style="width:${s.grip}%"></div></div></div>${action}`;
+    const spriteB64 = typeof CAR_SPRITES !== 'undefined' && CAR_SPRITES[car.id];
+    const carImgHtml = spriteB64
+      ? `<img src="data:image/png;base64,${spriteB64}" class="car-sprite-img" style="opacity:${locked?'0.35':'1'}">`
+      : `<div class="car-svg-fallback" style="background:${owned?'#2ed64a22':locked?'#58587a22':'#e8390e22'};border:1px solid ${owned?'#2ed64a44':locked?'#58587a44':'#e8390e44'}"></div>`;
+    div.innerHTML=`${badge}<div class="car-cls">${car.cls}-CLASS</div><div class="car-name">${car.name}</div><div class="car-img-wrap">${carImgHtml}</div><div class="stat-bar"><span class="stat-label">SPD</span><div class="bar-bg"><div class="bar-fill bar-speed" style="width:${s.speed}%"></div></div></div><div class="stat-bar"><span class="stat-label">ACC</span><div class="bar-bg"><div class="bar-fill bar-accel" style="width:${s.accel}%"></div></div></div><div class="stat-bar"><span class="stat-label">HDL</span><div class="bar-bg"><div class="bar-fill bar-handle" style="width:${s.handle}%"></div></div></div><div class="stat-bar"><span class="stat-label">GRP</span><div class="bar-bg"><div class="bar-fill bar-grip" style="width:${s.grip}%"></div></div></div>${action}`;
     grid.appendChild(div);
   });
 }
@@ -849,7 +962,7 @@ function renderGarageUpgrades(el){
     let pips='';
     for(let i=0;i<maxLvl;i++) pips+=`<div class="tier-pip ${i<lvl?(i===maxLvl-1&&lvl===maxLvl?'maxed':'active'):''}"></div>`;
     const card=document.createElement('div');card.className='upgrade-card';
-    card.innerHTML=`<div class="upgrade-icon">${upg.icon}</div><div class="upgrade-name">${upg.name}</div><div class="upgrade-desc">${upg.desc}</div><div class="upgrade-tier">${pips}</div><div style="font-family:'Share Tech Mono',monospace;font-size:12px;color:var(--gold);margin-bottom:10px;">${maxed?'MAXED':'$'+cost.toLocaleString()}</div><button class="btn btn-secondary btn-sm" style="width:100%;" onclick="buyGarageUpgrade('${upg.id}')" ${maxed||G.cash<cost?'disabled':''}>${maxed?'MAX':'UPGRADE'}</button>`;
+    card.innerHTML=`<div class="upgrade-icon-text">UPGRADE</div><div class="upgrade-name">${upg.name}</div><div class="upgrade-desc">${upg.desc}</div><div class="upgrade-tier">${pips}</div><div style="font-family:'Share Tech Mono',monospace;font-size:12px;color:var(--gold);margin-bottom:10px;">${maxed?'MAXED':'$'+cost.toLocaleString()}</div><button class="btn btn-secondary btn-sm" style="width:100%;" onclick="buyGarageUpgrade('${upg.id}')" ${maxed||G.cash<cost?'disabled':''}>${maxed?'MAX':'UPGRADE'}</button>`;
     grid.appendChild(card);
   });
 }
@@ -859,7 +972,7 @@ window.buyCar=async function(id){
   if(G.owned.length>=G.garageMax){toast('Garage full!','tl');return;}
   if(G.cash<car.price){toast("Can't afford it!",'tl');return;}
   if(G.rep<car.repReq){toast('Need '+car.repReq+' REP.','tl');return;}
-  G.cash-=car.price;G.owned.push(id);await savePlayer();updateHUD();renderGarage();toast('🔑 Bought '+car.name+'!','tw');
+  G.cash-=car.price;G.owned.push(id);await savePlayer();updateHUD();renderGarage();toast('Bought '+car.name+'!','tw');
 };
 
 window.selectCar=function(id){
@@ -873,7 +986,7 @@ window.buyGarageUpgrade=async function(id){
   const cost=upg.costs[lvl];if(G.cash<cost){toast("Can't afford it!",'tl');return;}
   G.cash-=cost;G.garageUpgrades[id]=lvl+1;
   if(id==='slots') G.garageMax=upg.levels[lvl];
-  await savePlayer();updateHUD();renderGarageUpgrades(document.getElementById('garage-content'));toast('✅ '+upg.name+' upgraded!','tw');
+  await savePlayer();updateHUD();renderGarageUpgrades(document.getElementById('garage-content'));toast('Upgraded: '+upg.name+' upgraded!','tw');
 };
 
 function renderTuning(){
@@ -884,7 +997,11 @@ function renderTuning(){
   if(!G.tuning[G.selected]) G.tuning[G.selected]={};
   const s=getStats(G.selected,G.tuning[G.selected]);
   const pwr=Math.round(s.speed*0.35+s.accel*0.35+s.handle*0.15+s.grip*0.15);
-  banner.innerHTML=`<div style="display:flex;align-items:center;gap:14px;"><span style="font-size:32px;">${car.emoji}</span><div style="flex:1;"><div style="font-family:'Bebas Neue',sans-serif;font-size:18px;">${car.name}</div><div style="font-size:11px;color:var(--muted);">PWR <span style="color:var(--neon);font-family:'Share Tech Mono',monospace;">${pwr}</span> &nbsp; SPD <span style="color:var(--accent);">${s.speed}</span> &nbsp; ACC <span style="color:var(--accent2);">${s.accel}</span> &nbsp; HDL <span style="color:var(--accent2);">${s.handle}</span> &nbsp; GRP <span style="color:var(--neon2);">${s.grip}</span></div></div><div style="font-family:'Share Tech Mono',monospace;font-size:13px;color:var(--gold);">${fmtCash(G.cash)}</div></div>`;
+  const tSpriteB64 = typeof CAR_SPRITES !== 'undefined' && CAR_SPRITES[car.id];
+  const tImgHtml = tSpriteB64
+    ? `<img src="data:image/png;base64,${tSpriteB64}" style="height:48px;image-rendering:pixelated;display:block;">`
+    : `<div style="width:80px;height:32px;background:#e8390e22;border:1px solid #e8390e44;border-radius:3px;"></div>`;
+  banner.innerHTML=`<div style="display:flex;align-items:center;gap:12px;"><div>${tImgHtml}</div><div style="flex:1;"><div style="font-family:'Bebas Neue',sans-serif;font-size:18px;">${car.name}</div><div style="font-size:11px;color:var(--muted);">PWR <span style="color:var(--neon);font-family:'Share Tech Mono',monospace;">${pwr}</span> &nbsp; SPD <span style="color:var(--accent);">${s.speed}</span> &nbsp; ACC <span style="color:var(--accent2);">${s.accel}</span> &nbsp; HDL <span style="color:var(--accent2);">${s.handle}</span> &nbsp; GRP <span style="color:var(--neon2);">${s.grip}</span></div></div><div style="font-family:'Share Tech Mono',monospace;font-size:13px;color:var(--gold);">${fmtCash(G.cash)}</div></div>`;
   content.innerHTML='';
   const liftDisc=(G.garageUpgrades.lift||0)*0.05;
   TUNING_CATS.forEach(cat=>{
@@ -896,7 +1013,7 @@ function renderTuning(){
       const maxed=lvl>=mod.max;
       let pips='';for(let i=0;i<mod.max;i++) pips+=`<div class="pip ${i<lvl?'active':''}"></div>`;
       const row=document.createElement('div');row.className='tune-row';
-      row.innerHTML=`<div class="tune-name">${mod.name} <span style="font-size:10px;color:var(--muted);">+${mod.gain} ${mod.eff}</span></div><div class="tune-pips">${pips}</div><div class="tune-cost">${maxed?'MAXED':fmtCash(cost)}</div><button class="tune-btn-sm" onclick="upgradeMod('${mod.id}',${mod.baseCost},'${mod.eff}',${mod.gain},${mod.max})" ${maxed||G.cash<cost?'disabled':''}>${maxed?'✓':'BUY'}</button>`;
+      row.innerHTML=`<div class="tune-name">${mod.name} <span style="font-size:10px;color:var(--muted);">+${mod.gain} ${mod.eff}</span></div><div class="tune-pips">${pips}</div><div class="tune-cost">${maxed?'MAXED':fmtCash(cost)}</div><button class="tune-btn-sm" onclick="upgradeMod('${mod.id}',${mod.baseCost},'${mod.eff}',${mod.gain},${mod.max})" ${maxed||G.cash<cost?'disabled':''}>${maxed?'MAX':'BUY'}</button>`;
       sec.appendChild(row);
     });
     content.appendChild(sec);
@@ -933,9 +1050,9 @@ async function renderMarket(){
     const canBuy=marketSection==='listings'&&G.cash>=l.price&&G.owned.length<G.garageMax&&!G.owned.includes(l.carId);
     const card=document.createElement('div');card.className='listing-card';
     if(marketSection==='listings'){
-      card.innerHTML=`<div style="font-size:11px;color:var(--muted);margin-bottom:4px;">Listed by <span style="color:var(--accent2);">${esc(l.sellerName)}</span></div><div style="font-size:24px;margin:6px 0;">${car.emoji}</div><div style="font-family:'Bebas Neue',sans-serif;font-size:17px;">${car.name}</div><div style="font-size:10px;letter-spacing:2px;color:var(--muted);">${car.cls}-CLASS</div><div class="listing-ask">${fmtCash(l.price)}</div>${l.mods?`<div style="font-size:11px;color:var(--neon);font-family:'Share Tech Mono',monospace;margin-bottom:6px;">🔧 ${esc(l.mods)}</div>`:''} ${l.note?`<div style="font-size:11px;color:var(--muted);margin-bottom:8px;">${esc(l.note)}</div>`:''}<button class="btn btn-${canBuy?'gold':'secondary'} btn-sm" style="width:100%;" onclick="buyFromMarket('${l.key}','${l.carId}',${l.price},'${esc(l.sellerName)}')" ${canBuy?'':'disabled'}>${G.owned.includes(l.carId)?'OWNED':G.owned.length>=G.garageMax?'GARAGE FULL':G.cash<l.price?'CANT AFFORD':'BUY'}</button>`;
+      card.innerHTML=`<div style="font-size:11px;color:var(--muted);margin-bottom:4px;">Listed by <span style="color:var(--accent2);">${esc(l.sellerName)}</span></div>${(typeof CAR_SPRITES!=='undefined'&&CAR_SPRITES[l.carId])?`<img src="data:image/png;base64,${CAR_SPRITES[l.carId]}" style="height:40px;image-rendering:pixelated;display:block;margin:6px 0;">`:''}<div style="font-family:'Bebas Neue',sans-serif;font-size:17px;">${car.name}</div><div style="font-size:10px;letter-spacing:2px;color:var(--muted);">${car.cls}-CLASS</div><div class="listing-ask">${fmtCash(l.price)}</div>${l.mods?`<div style="font-size:11px;color:var(--neon);font-family:'Share Tech Mono',monospace;margin-bottom:6px;">MODS: ${esc(l.mods)}</div>`:''} ${l.note?`<div style="font-size:11px;color:var(--muted);margin-bottom:8px;">${esc(l.note)}</div>`:''}<button class="btn btn-${canBuy?'gold':'secondary'} btn-sm" style="width:100%;" onclick="buyFromMarket('${l.key}','${l.carId}',${l.price},'${esc(l.sellerName)}')" ${canBuy?'':'disabled'}>${G.owned.includes(l.carId)?'OWNED':G.owned.length>=G.garageMax?'GARAGE FULL':G.cash<l.price?'CANT AFFORD':'BUY'}</button>`;
     } else {
-      card.innerHTML=`<div style="font-size:24px;margin:6px 0;">${car.emoji}</div><div style="font-family:'Bebas Neue',sans-serif;font-size:17px;">${car.name}</div><div class="listing-ask">${fmtCash(l.price)}</div>${l.note?`<div style="font-size:11px;color:var(--muted);margin-bottom:8px;">${esc(l.note)}</div>`:''}<button class="btn btn-danger btn-sm" style="width:100%;" onclick="cancelListing('${l.key}','${l.carId}')">CANCEL LISTING</button>`;
+      card.innerHTML=`<div style="margin:6px 0;"><svg width='80' height='32' viewBox='0 0 80 32' fill='none' xmlns='http://www.w3.org/2000/svg'><rect x='10' y='16' width='60' height='10' rx='3' fill='#d4a800' opacity='0.9'/><rect x='18' y='8' width='38' height='12' rx='3' fill='#d4a800' opacity='0.7'/><circle cx='20' cy='27' r='5' fill='#d4a800' opacity='0.45' stroke='#d4a800' stroke-width='1.5'/><circle cx='20' cy='27' r='2.5' fill='var(--bg2)'/><circle cx='60' cy='27' r='5' fill='#d4a800' opacity='0.45' stroke='#d4a800' stroke-width='1.5'/><circle cx='60' cy='27' r='2.5' fill='var(--bg2)'/><rect x='20' y='10' width='15' height='8' rx='1.5' fill='var(--bg2)' opacity='0.45'/><rect x='39' y='10' width='15' height='8' rx='1.5' fill='var(--bg2)' opacity='0.45'/></svg></div><div style="font-family:'Bebas Neue',sans-serif;font-size:17px;">${car.name}</div><div class="listing-ask">${fmtCash(l.price)}</div>${l.note?`<div style="font-size:11px;color:var(--muted);margin-bottom:8px;">${esc(l.note)}</div>`:''}<button class="btn btn-danger btn-sm" style="width:100%;" onclick="cancelListing('${l.key}','${l.carId}')">CANCEL LISTING</button>`;
     }
     grid.appendChild(card);
   });
@@ -954,7 +1071,7 @@ function renderSellForm(el){
   sellable.forEach(id=>{
     const car=getCarById(id);if(!car) return;
     const div=document.createElement('div');div.className='sell-car-opt';div.id='sco_'+id;
-    div.innerHTML=`<strong>${car.name}</strong> <span style="color:var(--muted);font-size:11px;">${car.cls}-class</span>`;
+    div.innerHTML=`<span style="font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--muted);margin-right:8px;">${car.cls}</span><strong>${car.name}</strong>`;
     div.onclick=()=>{document.querySelectorAll('.sell-car-opt').forEach(e=>e.classList.remove('sel'));div.classList.add('sel');};
     list.appendChild(div);
   });
@@ -986,7 +1103,7 @@ window.buyFromMarket=async function(key,carId,price,sellerName){
   await remove(ref(db,'market/'+key));
   await savePlayer();updateHUD();renderGarage();showMarketTab('listings');
   const car=getCarById(carId);
-  toast('🔑 Bought '+car?.name+'!','tw');
+  toast('Bought '+car?.name+'!','tw');
   postChat({author:'MARKET',color:'var(--purple)',text:`${G.playerName} bought ${car?.name} from ${sellerName} for ${fmtCash(price)}.`,type:'market'});
 };
 
@@ -1017,9 +1134,10 @@ async function renderLeaderboard(){
 
 window.showTab=function(tab){
   document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.nav-btn,.bnav-btn').forEach(b=>b.classList.remove('active'));
   document.getElementById('tab-'+tab).classList.add('active');
-  document.getElementById('nav-'+tab).classList.add('active');
+  const nb=document.getElementById('nav-'+tab);if(nb) nb.classList.add('active');
+  const bn=document.getElementById('bnav-'+tab);if(bn) bn.classList.add('active');
   currentTab=tab;
   if(tab==='chat'){chatUnread=0;updateChatBadge();scrollChat();}
   if(tab==='garage') renderGarage();
@@ -1046,7 +1164,13 @@ function updateMyCarDisplay(){
   const car=getCarById(G.selected);if(!car) return;
   const s=getStats(G.selected,G.tuning[G.selected]||{});
   const pwr=Math.round(s.speed*0.35+s.accel*0.35+s.handle*0.15+s.grip*0.15);
-  document.getElementById('my-car-emoji').textContent=car.emoji;
+  const mSpriteB64 = typeof CAR_SPRITES !== 'undefined' && CAR_SPRITES[car.id];
+  const mEl = document.getElementById('my-car-emoji');
+  if(mSpriteB64){
+    mEl.innerHTML=`<img src="data:image/png;base64,${mSpriteB64}" style="height:52px;image-rendering:pixelated;display:block;">`;
+  } else {
+    mEl.innerHTML=`<div style="width:80px;height:40px;background:#e8390e22;border:1px solid #e8390e44;border-radius:3px;"></div>`;
+  }
   document.getElementById('my-car-name').textContent=car.name;
   document.getElementById('my-car-class').textContent=car.cls+'-CLASS · PWR '+pwr;
   document.getElementById('my-power').textContent=pwr;

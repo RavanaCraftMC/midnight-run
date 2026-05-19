@@ -111,7 +111,7 @@ body{background:var(--bg);color:var(--text);font-family:'Rajdhani',sans-serif;fo
 .car-name{font-family:'Bebas Neue',sans-serif;font-size:15px;letter-spacing:1px;line-height:1.1;margin-bottom:2px;}
 .car-cls{font-size:9px;letter-spacing:2px;color:var(--muted);margin-bottom:8px;font-family:'Share Tech Mono',monospace;}
 .car-svg{display:block;margin:6px auto 8px;opacity:0.85;}
-.car-img-wrap{margin:6px 0 8px;text-align:center;height:52px;display:flex;align-items:center;justify-content:center;}
+.car-img-wrap{margin:6px 0 8px;text-align:center;height:52px;display:flex;align-items:center;justify-content:center;background:#09090e;border-radius:3px;overflow:hidden;}
 .car-sprite-img{max-height:52px;max-width:100%;image-rendering:pixelated;display:block;}
 .car-svg-fallback{width:100%;height:40px;border-radius:3px;margin:0 auto;}
 .stat-bar{margin:2px 0;display:flex;align-items:center;gap:5px;font-size:9px;}
@@ -989,7 +989,7 @@ function renderTuning(){
   const pwr=Math.round(s.speed*0.35+s.accel*0.35+s.handle*0.15+s.grip*0.15);
   const tSpriteB64 = typeof CAR_SPRITES !== 'undefined' && CAR_SPRITES[car.id];
   const tImgHtml = tSpriteB64
-    ? `<img src="data:image/png;base64,${tSpriteB64}" style="height:48px;image-rendering:pixelated;display:block;">`
+    ? `<div style="background:#09090e;border-radius:3px;overflow:hidden;display:inline-block;"><img src="data:image/png;base64,${tSpriteB64}" style="height:48px;image-rendering:pixelated;display:block;"></div>`
     : `<div style="width:80px;height:32px;background:#e8390e22;border:1px solid #e8390e44;border-radius:3px;"></div>`;
   banner.innerHTML=`<div style="display:flex;align-items:center;gap:12px;"><div>${tImgHtml}</div><div style="flex:1;"><div style="font-family:'Bebas Neue',sans-serif;font-size:18px;">${car.name}</div><div style="font-size:11px;color:var(--muted);">PWR <span style="color:var(--neon);font-family:'Share Tech Mono',monospace;">${pwr}</span> &nbsp; SPD <span style="color:var(--accent);">${s.speed}</span> &nbsp; ACC <span style="color:var(--accent2);">${s.accel}</span> &nbsp; HDL <span style="color:var(--accent2);">${s.handle}</span> &nbsp; GRP <span style="color:var(--neon2);">${s.grip}</span></div></div><div style="font-family:'Share Tech Mono',monospace;font-size:13px;color:var(--gold);">${fmtCash(G.cash)}</div></div>`;
   content.innerHTML='';
@@ -1040,7 +1040,7 @@ async function renderMarket(){
     const canBuy=marketSection==='listings'&&G.cash>=l.price&&G.owned.length<G.garageMax&&!G.owned.includes(l.carId);
     const card=document.createElement('div');card.className='listing-card';
     if(marketSection==='listings'){
-      card.innerHTML=`<div style="font-size:11px;color:var(--muted);margin-bottom:4px;">Listed by <span style="color:var(--accent2);">${esc(l.sellerName)}</span></div>${(typeof CAR_SPRITES!=='undefined'&&CAR_SPRITES[l.carId])?`<img src="data:image/png;base64,${CAR_SPRITES[l.carId]}" style="height:40px;image-rendering:pixelated;display:block;margin:6px 0;">`:''}<div style="font-family:'Bebas Neue',sans-serif;font-size:17px;">${car.name}</div><div style="font-size:10px;letter-spacing:2px;color:var(--muted);">${car.cls}-CLASS</div><div class="listing-ask">${fmtCash(l.price)}</div>${l.mods?`<div style="font-size:11px;color:var(--neon);font-family:'Share Tech Mono',monospace;margin-bottom:6px;">MODS: ${esc(l.mods)}</div>`:''} ${l.note?`<div style="font-size:11px;color:var(--muted);margin-bottom:8px;">${esc(l.note)}</div>`:''}<button class="btn btn-${canBuy?'gold':'secondary'} btn-sm" style="width:100%;" onclick="buyFromMarket('${l.key}','${l.carId}',${l.price},'${esc(l.sellerName)}')" ${canBuy?'':'disabled'}>${G.owned.includes(l.carId)?'OWNED':G.owned.length>=G.garageMax?'GARAGE FULL':G.cash<l.price?'CANT AFFORD':'BUY'}</button>`;
+      card.innerHTML=`<div style="font-size:11px;color:var(--muted);margin-bottom:4px;">Listed by <span style="color:var(--accent2);">${esc(l.sellerName)}</span></div>${(typeof CAR_SPRITES!=='undefined'&&CAR_SPRITES[l.carId])?`<div style="background:#09090e;border-radius:3px;overflow:hidden;display:inline-block;margin:6px 0;"><img src="data:image/png;base64,${CAR_SPRITES[l.carId]}" style="height:40px;image-rendering:pixelated;display:block;"></div>`:''}<div style="font-family:'Bebas Neue',sans-serif;font-size:17px;">${car.name}</div><div style="font-size:10px;letter-spacing:2px;color:var(--muted);">${car.cls}-CLASS</div><div class="listing-ask">${fmtCash(l.price)}</div>${l.mods?`<div style="font-size:11px;color:var(--neon);font-family:'Share Tech Mono',monospace;margin-bottom:6px;">MODS: ${esc(l.mods)}</div>`:''} ${l.note?`<div style="font-size:11px;color:var(--muted);margin-bottom:8px;">${esc(l.note)}</div>`:''}<button class="btn btn-${canBuy?'gold':'secondary'} btn-sm" style="width:100%;" onclick="buyFromMarket('${l.key}','${l.carId}',${l.price},'${esc(l.sellerName)}')" ${canBuy?'':'disabled'}>${G.owned.includes(l.carId)?'OWNED':G.owned.length>=G.garageMax?'GARAGE FULL':G.cash<l.price?'CANT AFFORD':'BUY'}</button>`;
     } else {
       card.innerHTML=`<div style="margin:6px 0;"><svg width='80' height='32' viewBox='0 0 80 32' fill='none' xmlns='http://www.w3.org/2000/svg'><rect x='10' y='16' width='60' height='10' rx='3' fill='#d4a800' opacity='0.9'/><rect x='18' y='8' width='38' height='12' rx='3' fill='#d4a800' opacity='0.7'/><circle cx='20' cy='27' r='5' fill='#d4a800' opacity='0.45' stroke='#d4a800' stroke-width='1.5'/><circle cx='20' cy='27' r='2.5' fill='var(--bg2)'/><circle cx='60' cy='27' r='5' fill='#d4a800' opacity='0.45' stroke='#d4a800' stroke-width='1.5'/><circle cx='60' cy='27' r='2.5' fill='var(--bg2)'/><rect x='20' y='10' width='15' height='8' rx='1.5' fill='var(--bg2)' opacity='0.45'/><rect x='39' y='10' width='15' height='8' rx='1.5' fill='var(--bg2)' opacity='0.45'/></svg></div><div style="font-family:'Bebas Neue',sans-serif;font-size:17px;">${car.name}</div><div class="listing-ask">${fmtCash(l.price)}</div>${l.note?`<div style="font-size:11px;color:var(--muted);margin-bottom:8px;">${esc(l.note)}</div>`:''}<button class="btn btn-danger btn-sm" style="width:100%;" onclick="cancelListing('${l.key}','${l.carId}')">CANCEL LISTING</button>`;
     }
@@ -1157,7 +1157,7 @@ function updateMyCarDisplay(){
   const mSpriteB64 = typeof CAR_SPRITES !== 'undefined' && CAR_SPRITES[car.id];
   const mEl = document.getElementById('my-car-emoji');
   if(mSpriteB64){
-    mEl.innerHTML=`<img src="data:image/png;base64,${mSpriteB64}" style="height:52px;image-rendering:pixelated;display:block;">`;
+    mEl.innerHTML=`<div style="background:#09090e;border-radius:3px;overflow:hidden;display:inline-block;"><img src="data:image/png;base64,${mSpriteB64}" style="height:52px;image-rendering:pixelated;display:block;"></div>`;
   } else {
     mEl.innerHTML=`<div style="width:80px;height:40px;background:#e8390e22;border:1px solid #e8390e44;border-radius:3px;"></div>`;
   }

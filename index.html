@@ -183,20 +183,58 @@ select.form-input option{background:var(--bg2);}
   <div class="setup-box">
     <div class="setup-logo">MIDNIGHT<span>RUN</span></div>
     <div class="setup-sub">Underground Street Racing</div>
-    <div class="form-row" style="text-align:left;">
-      <label class="form-label">Driver Tag</label>
-      <input class="form-input" id="setup-name" placeholder="e.g. Ghost, Viper, Kira..." maxlength="16" style="margin-bottom:10px;"/>
-      <label class="form-label">Starting Car</label>
-      <select class="form-input" id="setup-car">
-        <option value="civic_si">Honda Civic Si</option>
-        <option value="ae86">Toyota AE86 Trueno</option>
-        <option value="mx5_nb">Mazda Miata NB</option>
-        <option value="240sx">Nissan 240SX S13</option>
-        <option value="neon_srt">Dodge Neon SRT-4</option>
-      </select>
+
+    <!-- LOGIN VIEW -->
+    <div id="auth-login">
+      <div class="form-row" style="text-align:left;">
+        <label class="form-label">Email</label>
+        <input class="form-input" id="login-email" type="email" placeholder="your@email.com" style="margin-bottom:10px;"/>
+        <label class="form-label">Password</label>
+        <input class="form-input" id="login-password" type="password" placeholder="Password" style="margin-bottom:10px;"/>
+      </div>
+      <button class="btn btn-primary" style="width:100%;font-size:18px;padding:11px;" onclick="doLogin()">LOGIN</button>
+      <div style="margin:12px 0;display:flex;align-items:center;gap:8px;">
+        <div style="flex:1;height:1px;background:var(--border);"></div>
+        <span style="font-size:11px;color:var(--muted);">OR</span>
+        <div style="flex:1;height:1px;background:var(--border);"></div>
+      </div>
+      <button class="btn btn-secondary" style="width:100%;font-size:16px;padding:9px;" onclick="showAuthView('register')">CREATE ACCOUNT</button>
+      <div style="margin-top:10px;"><button onclick="showAuthView('reset')" style="background:none;border:none;color:var(--muted);font-size:11px;cursor:pointer;text-decoration:underline;">Forgot password?</button></div>
     </div>
-    <button class="btn btn-primary" style="width:100%;font-size:20px;padding:12px;margin-top:8px;" id="enter-btn" onclick="startGame()">ENTER THE STREETS</button>
-    <div id="setup-status" style="font-size:11px;color:var(--muted);margin-top:12px;">Connecting...</div>
+
+    <!-- REGISTER VIEW -->
+    <div id="auth-register" style="display:none;">
+      <div class="form-row" style="text-align:left;">
+        <label class="form-label">Email</label>
+        <input class="form-input" id="reg-email" type="email" placeholder="your@email.com" style="margin-bottom:10px;"/>
+        <label class="form-label">Password (min 6 chars)</label>
+        <input class="form-input" id="reg-password" type="password" placeholder="Choose a password" style="margin-bottom:10px;"/>
+        <label class="form-label">Driver Tag</label>
+        <input class="form-input" id="reg-name" placeholder="e.g. Ghost, Viper, Kira..." maxlength="16" style="margin-bottom:10px;"/>
+        <label class="form-label">Starting Car</label>
+        <select class="form-input" id="reg-car">
+          <option value="civic_si">Honda Civic Si</option>
+          <option value="ae86">Toyota AE86 Trueno</option>
+          <option value="mx5_nb">Mazda Miata NB</option>
+          <option value="240sx">Nissan 240SX S13</option>
+          <option value="neon_srt">Dodge Neon SRT-4</option>
+        </select>
+      </div>
+      <button class="btn btn-primary" style="width:100%;font-size:18px;padding:11px;" onclick="doRegister()">CREATE ACCOUNT</button>
+      <div style="margin-top:10px;"><button onclick="showAuthView('login')" style="background:none;border:none;color:var(--muted);font-size:11px;cursor:pointer;text-decoration:underline;">Back to login</button></div>
+    </div>
+
+    <!-- RESET VIEW -->
+    <div id="auth-reset" style="display:none;">
+      <div class="form-row" style="text-align:left;">
+        <label class="form-label">Email</label>
+        <input class="form-input" id="reset-email" type="email" placeholder="your@email.com" style="margin-bottom:10px;"/>
+      </div>
+      <button class="btn btn-secondary" style="width:100%;font-size:18px;padding:11px;" onclick="doReset()">SEND RESET EMAIL</button>
+      <div style="margin-top:10px;"><button onclick="showAuthView('login')" style="background:none;border:none;color:var(--muted);font-size:11px;cursor:pointer;text-decoration:underline;">Back to login</button></div>
+    </div>
+
+    <div id="setup-status" style="font-size:11px;color:var(--muted);margin-top:14px;min-height:16px;"></div>
   </div>
 </div>
 
@@ -209,6 +247,7 @@ select.form-input option{background:var(--bg2);}
     <div class="hud-item"><div class="hud-label">W / L</div><div class="hud-val accent" id="hud-wl">0/0</div></div>
     <div class="hud-item"><div class="hud-label">Garage</div><div class="hud-val" id="hud-garage">1/3</div></div>
     <div class="hud-item"><div class="hud-label"><span class="online-dot"></span>Online</div><div class="hud-val" id="hud-online">1</div></div>
+    <button onclick="doSignOut()" style="background:none;border:1px solid var(--border);border-radius:4px;color:var(--muted);font-family:'Rajdhani',sans-serif;font-size:11px;font-weight:700;letter-spacing:1px;padding:4px 10px;cursor:pointer;" title="Sign Out">SIGN OUT</button>
   </div>
 </div>
 <div id="main">
@@ -326,7 +365,8 @@ select.form-input option{background:var(--bg2);}
 
 <script type="module">
 import{initializeApp}from"https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import{getDatabase,ref,set,get,onValue,push,remove,serverTimestamp,onDisconnect,query,orderByChild,limitToLast}from"https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+import{getDatabase,ref,set,get,onValue,onChildAdded,push,remove,serverTimestamp,onDisconnect,query,orderByChild,limitToLast}from"https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+import{getAuth,createUserWithEmailAndPassword,signInWithEmailAndPassword,sendPasswordResetEmail,onAuthStateChanged,signOut}from"https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
 const firebaseConfig={
   apiKey:"AIzaSyDfiVXnCdA-tuErfA7BPE_GMrzrh2F-jKk",
@@ -340,7 +380,112 @@ const firebaseConfig={
 
 const fbApp=initializeApp(firebaseConfig);
 const db=getDatabase(fbApp);
-document.getElementById('setup-status').textContent='Connected. Ready to race.';
+const auth=getAuth(fbApp);
+
+// Auth state - auto-login if session exists
+onAuthStateChanged(auth,async user=>{
+  if(user){
+    // Returning user - load their data
+    const snap=await get(ref(db,'players/'+user.uid));
+    if(snap.exists()){
+      const d=snap.val();
+      G.playerId=user.uid;
+      G.playerName=d.name||'Driver';
+      G.cash=d.cash??2500;
+      G.rep=d.rep??0;
+      G.wins=d.wins??0;
+      G.losses=d.losses??0;
+      G.owned=d.owned||[d.selected||'civic_si'];
+      G.selected=d.selected||G.owned[0];
+      G.tuning=d.tuning||{};
+      G.garageUpgrades=d.garageUpgrades||{slots:0,lift:0,dyno:0,parts:0};
+      G.garageMax=d.garageMax||3;
+      launchGame();
+    }
+  }
+});
+
+window.showAuthView=function(view){
+  ['login','register','reset'].forEach(v=>{
+    document.getElementById('auth-'+v).style.display=v===view?'block':'none';
+  });
+  document.getElementById('setup-status').textContent='';
+};
+
+function setStatus(msg,isErr){
+  const el=document.getElementById('setup-status');
+  el.textContent=msg;
+  el.style.color=isErr?'var(--danger)':'var(--neon)';
+}
+
+window.doLogin=async function(){
+  const email=document.getElementById('login-email').value.trim();
+  const pass=document.getElementById('login-password').value;
+  if(!email||!pass){setStatus('Fill in all fields.','true');return;}
+  setStatus('Logging in...');
+  try{
+    await signInWithEmailAndPassword(auth,email,pass);
+    // onAuthStateChanged handles the rest
+  }catch(e){
+    const msgs={
+      'auth/invalid-credential':'Wrong email or password.',
+      'auth/user-not-found':'No account with that email.',
+      'auth/wrong-password':'Wrong password.',
+      'auth/too-many-requests':'Too many attempts. Try later.',
+    };
+    setStatus(msgs[e.code]||'Login failed: '+e.message,true);
+  }
+};
+
+window.doRegister=async function(){
+  const email=document.getElementById('reg-email').value.trim();
+  const pass=document.getElementById('reg-password').value;
+  const name=(document.getElementById('reg-name').value||'').trim();
+  const carId=document.getElementById('reg-car').value;
+  if(!email||!pass||!name){setStatus('Fill in all fields.',true);return;}
+  if(name.length<2){setStatus('Driver tag too short.',true);return;}
+  if(pass.length<6){setStatus('Password must be 6+ characters.',true);return;}
+  setStatus('Creating account...');
+  try{
+    const cred=await createUserWithEmailAndPassword(auth,email,pass);
+    G.playerId=cred.user.uid;
+    G.playerName=name;
+    G.owned=[carId];
+    G.selected=carId;
+    await savePlayer();
+    launchGame();
+  }catch(e){
+    const msgs={
+      'auth/email-already-in-use':'An account with that email already exists.',
+      'auth/invalid-email':'Invalid email address.',
+      'auth/weak-password':'Password is too weak.',
+    };
+    setStatus(msgs[e.code]||'Registration failed: '+e.message,true);
+  }
+};
+
+window.doReset=async function(){
+  const email=document.getElementById('reset-email').value.trim();
+  if(!email){setStatus('Enter your email.',true);return;}
+  try{
+    await sendPasswordResetEmail(auth,email);
+    setStatus('Reset email sent! Check your inbox.');
+    setTimeout(()=>showAuthView('login'),3000);
+  }catch(e){
+    setStatus('Could not send reset email.',true);
+  }
+};
+
+function launchGame(){
+  document.getElementById('setup-screen').style.display='none';
+  document.getElementById('app').style.display='block';
+  updateHUD();updateMyCarDisplay();renderGarage();renderTuning();
+  goOnline();
+  setInterval(goOnline,12000);
+  listenOnline();listenChallenge();listenChat();listenRecent();
+  document.getElementById('chat-input').addEventListener('keydown',e=>{if(e.key==='Enter')sendChat();});
+  postChat({author:'SYSTEM',color:'var(--neon)',text:G.playerName+' hit the streets.',type:'sys'});
+}
 
 const CARS=[
   {id:'civic_si',name:'Honda Civic Si',cls:'D',emoji:'🚗',price:0,repReq:0,speed:42,accel:45,handle:55,grip:50},
@@ -434,32 +579,22 @@ function oRef(id){return ref(db,'online/'+(id||G.playerId));}
 function cRef(id){return ref(db,'challenges/'+(id||G.playerId));}
 
 async function savePlayer(){
-  await set(pRef(),{id:G.playerId,name:G.playerName,cash:G.cash,rep:G.rep,wins:G.wins,losses:G.losses,owned:G.owned,selected:G.selected,tuning:G.tuning,garageUpgrades:G.garageUpgrades,garageMax:G.garageMax,ts:Date.now()});
+  if(!G.playerId) return;
+  await set(ref(db,'players/'+G.playerId),{id:G.playerId,name:G.playerName,cash:G.cash,rep:G.rep,wins:G.wins,losses:G.losses,owned:G.owned,selected:G.selected,tuning:G.tuning,garageUpgrades:G.garageUpgrades,garageMax:G.garageMax,ts:Date.now()});
 }
 
+let onlineSetup=false;
 async function goOnline(){
+  if(!G.playerId) return;
   const r=oRef();
   await set(r,{id:G.playerId,name:G.playerName,selected:G.selected,rep:G.rep,wins:G.wins,ts:serverTimestamp()});
-  onDisconnect(r).remove();
+  if(!onlineSetup){onDisconnect(r).remove();onlineSetup=true;}
 }
 
-window.startGame=async function(){
-  const name=(document.getElementById('setup-name').value||'').trim();
-  if(name.length<2){toast('Enter a driver tag (min 2 chars)','ti');return;}
-  const carId=document.getElementById('setup-car').value;
-  G.playerId='p_'+Date.now()+'_'+Math.random().toString(36).slice(2,6);
-  G.playerName=name;
-  G.owned=[carId];
-  G.selected=carId;
-  document.getElementById('setup-screen').style.display='none';
-  document.getElementById('app').style.display='block';
-  await savePlayer();
-  updateHUD();updateMyCarDisplay();renderGarage();renderTuning();
-  await goOnline();
-  setInterval(goOnline,12000);
-  listenOnline();listenChallenge();listenChat();listenRecent();
-  document.getElementById('chat-input').addEventListener('keydown',e=>{if(e.key==='Enter')sendChat();});
-  postChat({author:'SYSTEM',color:'var(--neon)',text:G.playerName+' hit the streets.',type:'sys'});
+window.doSignOut=async function(){
+  await remove(oRef());
+  await signOut(auth);
+  location.reload();
 };
 
 function listenOnline(){
@@ -637,16 +772,17 @@ window.sendChat=async function(){
 
 function listenChat(){
   const q=query(ref(db,'chat'),orderByChild('ts'),limitToLast(80));
-  onValue(q,snap=>{
-    const msgs=[];snap.forEach(c=>msgs.push(c.val()));
-    if(!chatInited){
-      document.getElementById('chat-messages').innerHTML='';
-      msgs.forEach(m=>renderChatMsg(m));
-      chatInited=true;scrollChat();return;
-    }
-    const last=msgs[msgs.length-1];
-    if(last){renderChatMsg(last);if(currentTab!=='chat'&&last.author!==G.playerName){chatUnread++;updateChatBadge();}scrollChat();}
+  const seenKeys=new Set();
+  let loaded=false;
+  onChildAdded(q,snap=>{
+    if(seenKeys.has(snap.key)) return;
+    seenKeys.add(snap.key);
+    const m=snap.val();
+    renderChatMsg(m);
+    if(loaded&&currentTab!=='chat'&&m.author!==G.playerName){chatUnread++;updateChatBadge();}
+    scrollChat();
   });
+  setTimeout(()=>{loaded=true;},1200);
 }
 
 function listenRecent(){
